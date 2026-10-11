@@ -41,6 +41,8 @@ function MainLayout() {
     loginAsEmployer,
     setIsAuthModalOpen,
     userCity,
+    userDistrict,
+    userDivision,
     userCoords,
     workers, 
     loading, 
@@ -79,15 +81,17 @@ function MainLayout() {
     }
   };
 
-  // In-memory client filtering for instantaneous reactivity
+  // In-memory client filtering for instantaneous reactivity across Maharashtra
   let displayedWorkers = [...workers];
 
-  // City-level isolation: If Kolhapur or Pune is active, strictly show workers in that region
-  if (userCity && userCity !== 'all') {
-    displayedWorkers = displayedWorkers.filter(w =>
-      (w.city && w.city.toLowerCase() === userCity.toLowerCase()) ||
-      w.location.toLowerCase().includes(userCity.toLowerCase())
-    );
+  // District / City level isolation: Filter by selected Maharashtra district
+  const targetDist = (userDistrict || userCity || '').toLowerCase();
+  if (targetDist && targetDist !== 'all') {
+    displayedWorkers = displayedWorkers.filter(w => {
+      const wDist = (w.district || w.city || '').toLowerCase();
+      const wLoc = (w.location || '').toLowerCase();
+      return wDist === targetDist || wLoc.includes(targetDist);
+    });
   }
 
   if (filters.trade && filters.trade !== 'all') {
@@ -97,9 +101,11 @@ function MainLayout() {
   }
 
   if (filters.location && filters.location !== 'all') {
+    const locLower = filters.location.toLowerCase();
     displayedWorkers = displayedWorkers.filter(w =>
-      (w.locationArea && w.locationArea.toLowerCase().includes(filters.location.toLowerCase())) ||
-      w.location.toLowerCase().includes(filters.location.toLowerCase())
+      (w.locationArea && w.locationArea.toLowerCase().includes(locLower)) ||
+      (w.locality && w.locality.toLowerCase().includes(locLower)) ||
+      (w.location && w.location.toLowerCase().includes(locLower))
     );
   }
 

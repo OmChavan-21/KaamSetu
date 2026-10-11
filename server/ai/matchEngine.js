@@ -1,6 +1,8 @@
+import { MAHARASHTRA_DISTRICTS, getHaversineDistanceKm } from '../data/maharashtraData.js';
+
 // KaamSetu AI Match Engine
 // Implements multi-factor ranking based on Slide 6 of KaamSetu AI Architecture
-// Enhanced with trilingual trade & locality resolution
+// Enhanced with trilingual trade & statewide Maharashtra locality resolution
 
 export const PUNE_LOCALITY_MAP = {
   swargate: { lat: 18.5018, lng: 73.8580, aliases: ['swargate', 'स्वारगेट', 'swargat'] },
@@ -29,7 +31,29 @@ export const KOLHAPUR_LOCALITY_MAP = {
   kasbabawada: { lat: 16.7262, lng: 74.2443, aliases: ['kasba bawada', 'कसबा बावडा', 'bawada'] }
 };
 
-export const ALL_LOCALITIES = { ...PUNE_LOCALITY_MAP, ...KOLHAPUR_LOCALITY_MAP };
+// Build dynamic Maharashtra statewide locality map from all districts and chowks
+const dynamicStatewideLocalities = {};
+if (Array.isArray(MAHARASHTRA_DISTRICTS)) {
+  MAHARASHTRA_DISTRICTS.forEach(dist => {
+    dynamicStatewideLocalities[dist.id.toLowerCase()] = {
+      lat: dist.lat,
+      lng: dist.lng,
+      aliases: [dist.id.toLowerCase(), dist.name.toLowerCase(), dist.nameMr?.toLowerCase()].filter(Boolean)
+    };
+    if (Array.isArray(dist.chowks)) {
+      dist.chowks.forEach(chowk => {
+        const key = chowk.id.toLowerCase().replace(/\s+/g, '');
+        dynamicStatewideLocalities[key] = {
+          lat: chowk.lat,
+          lng: chowk.lng,
+          aliases: [chowk.id.toLowerCase(), chowk.name.toLowerCase()]
+        };
+      });
+    }
+  });
+}
+
+export const ALL_LOCALITIES = { ...PUNE_LOCALITY_MAP, ...KOLHAPUR_LOCALITY_MAP, ...dynamicStatewideLocalities };
 
 export const TRADE_ALIASES = {
   Electrician: ['electrician', 'वायरमन', 'इलेक्ट्रिशियन', 'इलेक्ट्रीशियन', 'विजेचे काम', 'बिजली', 'wiring', 'wireman'],
@@ -57,8 +81,9 @@ export function calculateDistanceKm(lat1, lon1, lat2, lon2) {
 export function rankWorkers(workers, requirement = {}) {
   const {
     trade = '',
-    location = 'Kolhapur',
-    city = 'Kolhapur',
+    location = '',
+    city = '',
+    district = '',
     userLat,
     userLng,
     budget = 700,
@@ -67,16 +92,40 @@ export function rankWorkers(workers, requirement = {}) {
     availableTodayOnly = false
   } = requirement;
 
-  // Resolve employer coordinates: Use exact GPS if provided, else city/locality lookup
-  let employerLat = userLat ? Number(userLat) : (city === 'Kolhapur' || location.toLowerCase().includes('kolhapur') ? 16.6946 : 18.5204);
-  let employerLng = userLng ? Number(userLng) : (city === 'Kolhapur' || location.toLowerCase().includes('kolhapur') ? 74.2238 : 73.8567);
-  const locLower = (location || '').toLowerCase().trim();
+  // Resolve employer coordinates: Use exact GPS if provided, else city/district/locality lookup
+  let employerLat = userLat ? Number(userLat) : undefined;
+  let employerLng = userLng ? Number(userLng) : undefined;
 
-  for (const [key, meta] of Object.entries(ALL_LOCALITIES)) {
-    if (meta.aliases.some(alias => locLower.includes(alias.toLowerCase()))) {
-      employerLat = meta.lat;
-      employerLng = meta.lng;
-      break;
+  const targetDistName = (district || city || location || '').trim().toLowerCase();
+
+  if (!employerLat || !employerLng) {
+    // 1. Check if matches a known Maharashtra district first
+    const matchedDistrict = Array.isArray(MAHARASHTRA_DISTRICTS) && MAHARASHTRA_DISTRICTS.find(d =>
+      d.id.toLowerCase() === targetDistName ||
+      d.name.toLowerCase() === targetDistName ||
+      targetDistName.includes(d.id.toLowerCase())
+    );
+    if (matchedDistrict) {
+      employerLat = matchedDistrict.lat;
+      employerLng = matchedDistrict.lng;
+    }
+
+    // 2. Check if matches any specific locality or chowk
+    if (!employerLat) {
+      const locLower = `${location || ''} ${city || ''} ${district || ''}`.toLowerCase().trim();
+      for (const [key, meta] of Object.entries(ALL_LOCALITIES)) {
+        if (meta.aliases.some(alias => locLower.includes(alias.toLowerCase()))) {
+          employerLat = meta.lat;
+          employerLng = meta.lng;
+          break;
+        }
+      }
+    }
+
+    // 3. Default fallback to Pune Central
+    if (!employerLat) {
+      employerLat = 18.5204;
+      employerLng = 73.8567;
     }
   }
 
@@ -127,7 +176,9 @@ export function rankWorkers(workers, requirement = {}) {
     skillScore = Math.min(skillScore, 30);
 
     // 2. Location & Distance Score (max 25)
-    const distanceKm = calculateDistanceKm(employerLat, employerLng, worker.lat, worker.lng);
+    const wLat = worker.lat !== undefined ? worker.lat : (worker.coordinates?.lat ?? 18.5204);
+    const wLng = worker.lng !== undefined ? worker.lng : (worker.coordinates?.lng ?? 73.8567);
+    const distanceKm = calculateDistanceKm(employerLat, employerLng, wLat, wLng);
     let locationScore = 0;
     if (distanceKm <= 3) {
       locationScore = 25;
@@ -156,9 +207,9 @@ export function rankWorkers(workers, requirement = {}) {
 
     // 4. Availability Score (max 15)
     let availabilityScore = 0;
-    if (worker.isAvailable && worker.availableToday) {
+    if (worker.isAvailable && worker.availableToday !== false) {
       availabilityScore = 15;
-    } else if (worker.availableToday) {
+    } else if (worker.isAvailable || worker.availableToday) {
       availabilityScore = 11;
     } else {
       availabilityScore = 3;
@@ -166,8 +217,8 @@ export function rankWorkers(workers, requirement = {}) {
 
     // 5. Reputation & Verification Score (max 15)
     let repScore = (worker.rating / 5.0) * 8;
-    if (worker.isIdentityVerified) repScore += 4;
-    if (worker.isSkillVerified) repScore += 3;
+    if (worker.isIdentityVerified || worker.isVerified) repScore += 4;
+    if (worker.isSkillVerified || worker.skillCertified) repScore += 3;
     repScore = Math.min(repScore, 15);
 
     // Total raw score out of 100

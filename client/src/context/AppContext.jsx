@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { translations } from '../i18n/translations';
 import { sound } from '../utils/sound';
 import confetti from 'canvas-confetti';
+import { MAHARASHTRA_DIVISIONS, MAHARASHTRA_DISTRICTS, findClosestMaharashtraDistrict } from '../data/maharashtraDistricts';
 
 // Earth radius distance calculation (Haversine formula in km)
 export function calculateClientDistance(lat1, lon1, lat2, lon2) {
@@ -37,8 +38,10 @@ export function AppProvider({ children }) {
   const [language, setLanguage] = useState('en'); // 'en' | 'mr' | 'hi'
   const [soundEnabled, setSoundEnabled] = useState(true);
   
-  // Geolocation & City State (Defaults to Kolhapur as requested)
-  const [userCity, setUserCity] = useState('Kolhapur'); // 'Kolhapur' | 'Pune' | 'all'
+  // Geolocation & District State (Defaults to Kolhapur as requested)
+  const [userCity, setUserCity] = useState('Kolhapur'); // District name or 'all'
+  const [userDistrict, setUserDistrict] = useState('Kolhapur');
+  const [userDivision, setUserDivision] = useState('western');
   const [userCoords, setUserCoords] = useState({
     lat: 16.6946,
     lng: 74.2238,
@@ -58,6 +61,8 @@ export function AppProvider({ children }) {
   // Filters state (for employer search)
   const [filters, setFilters] = useState({
     city: 'Kolhapur',
+    district: 'Kolhapur',
+    division: 'all',
     trade: 'all',
     location: 'all',
     maxWage: 1000,
@@ -95,7 +100,7 @@ export function AppProvider({ children }) {
     return translations[language]?.[key] || translations.en[key] || key;
   };
 
-  // Geolocation detection method
+  // Geolocation detection method across all Maharashtra districts
   const detectUserLocation = () => {
     if (!navigator.geolocation) {
       addToast('Geolocation is not supported by your browser.', 'alert');
@@ -105,41 +110,42 @@ export function AppProvider({ children }) {
     addToast(
       language === 'mr' ? 'GPS स्थान शोधत आहे...' :
       language === 'hi' ? 'GPS स्थान खोजा जा रहा है...' :
-      'Detecting live GPS coordinates...',
+      'Detecting live GPS coordinates across Maharashtra...',
       'info'
     );
 
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         const { latitude, longitude, accuracy } = pos.coords;
-        // Check proximity: Kolhapur center (16.7050, 74.2433) vs Pune center (18.5204, 73.8567)
-        const distToKolhapur = calculateClientDistance(latitude, longitude, 16.7050, 74.2433);
-        const distToPune = calculateClientDistance(latitude, longitude, 18.5204, 73.8567);
-        const detectedCity = distToKolhapur < distToPune ? 'Kolhapur' : 'Pune';
+        const { district: closestDistrict, distanceKm } = findClosestMaharashtraDistrict(latitude, longitude);
+        const detectedName = closestDistrict ? closestDistrict.name : 'Kolhapur';
+        const detectedId = closestDistrict ? closestDistrict.id : 'Kolhapur';
 
         const newCoords = {
           lat: latitude,
           lng: longitude,
           accuracy,
-          name: `${detectedCity} (Live GPS)`
+          name: `${detectedName} Hub (${distanceKm} km live GPS)`
         };
 
         setUserCoords(newCoords);
-        setUserCity(detectedCity);
-        setFilters(prev => ({ ...prev, city: detectedCity, location: 'all' }));
+        setUserCity(detectedId);
+        setUserDistrict(detectedId);
+        if (closestDistrict?.division) setUserDivision(closestDistrict.division);
+        setFilters(prev => ({ ...prev, city: detectedId, district: detectedId, location: 'all' }));
         setLocationStatus('detected');
         setIsLocating(false);
 
         // Dynamically recalculate distances for all loaded workers
         setWorkers(prev => prev.map(w => ({
           ...w,
-          distanceKm: calculateClientDistance(latitude, longitude, w.lat, w.lng)
+          distanceKm: calculateClientDistance(latitude, longitude, w.lat ?? w.coordinates?.lat, w.lng ?? w.coordinates?.lng)
         })));
 
         addToast(
-          language === 'mr' ? `स्थान निश्चित झाले: ${detectedCity === 'Kolhapur' ? 'कोल्हापूर' : 'पुणे'}! जवळील कारागीर दाखवत आहे.` :
-          language === 'hi' ? `स्थान मिला: ${detectedCity}! आस-पास के कारीगर दिखाए जा रहे हैं।` :
-          `Live GPS Detected: ${detectedCity}! Showing nearest verified artisans.`,
+          language === 'mr' ? `स्थान निश्चित झाले: ${closestDistrict?.nameMr || detectedName} (${distanceKm} किमी)! जवळचे कारागीर दाखवत आहे.` :
+          language === 'hi' ? `स्थान मिला: ${detectedName} (${distanceKm} किमी)! आस-पास के कारीगर दिखाए जा रहे हैं।` :
+          `Live GPS Snapped: ${detectedName} Hub (${distanceKm} km)! Showing nearest verified artisans.`,
           'success'
         );
       },
@@ -147,8 +153,8 @@ export function AppProvider({ children }) {
         setIsLocating(false);
         console.warn('Geolocation failed:', err.message);
         addToast(
-          language === 'mr' ? 'GPS परवानगी नाकारली. तुम्ही मॅन्युअली कोल्हापूर किंवा पुणे निवडू शकता.' :
-          'GPS access denied or unavailable. You can easily switch city manually.',
+          language === 'mr' ? 'GPS परवानगी नाकारली. तुम्ही मॅन्युअली कोणताही जिल्हा निवडू शकता.' :
+          'GPS access denied or unavailable. You can easily switch district manually.',
           'alert'
         );
       },
@@ -156,39 +162,64 @@ export function AppProvider({ children }) {
     );
   };
 
-  // Manual city selection method
-  const selectCity = (cityName) => {
-    setUserCity(cityName);
+  // Manual district / city selection method across Maharashtra
+  const selectDistrict = (districtName) => {
+    setUserDistrict(districtName);
+    setUserCity(districtName);
     setLocationStatus('manual');
 
-    let newCoords;
-    if (cityName === 'Kolhapur') {
-      newCoords = { lat: 16.6946, lng: 74.2238, name: 'Kolhapur Central (Bindu Chowk)' };
+    if (districtName === 'all') {
+      const allCoords = { lat: 19.7515, lng: 75.7139, name: 'Maharashtra Statewide' };
+      setUserCoords(allCoords);
+      setUserDivision('all');
+      setFilters(prev => ({ ...prev, city: 'all', district: 'all', division: 'all', location: 'all' }));
+      setWorkers(prev => prev.map(w => ({
+        ...w,
+        distanceKm: calculateClientDistance(allCoords.lat, allCoords.lng, w.lat ?? w.coordinates?.lat, w.lng ?? w.coordinates?.lng)
+      })));
       addToast(
-        language === 'mr' ? 'कोल्हापूर शहर सक्रिय: बिंदू चौक, राजारामपुरी व शाहूपुरी कारागीर!' :
-        'Switched to Kolhapur: Showing Bindu Chowk, Rajarampuri & Kolhapur artisans!',
-        'success'
+        language === 'mr' ? 'संपूर्ण महाराष्ट्र सक्रिय: सर्व जिल्ह्यातील कारागीर दाखवत आहे!' :
+        'Maharashtra Statewide: Showing artisans across all 36 districts!',
+        'info'
       );
-    } else if (cityName === 'Pune') {
-      newCoords = { lat: 18.5204, lng: 73.8567, name: 'Pune Central (Swargate/Shivajinagar)' };
-      addToast(
-        language === 'mr' ? 'पुणे शहर सक्रिय: स्वारगेट, कोथरूड व पिंपरी कारागीर!' :
-        'Switched to Pune: Showing Swargate, Kothrud & Pune artisans!',
-        'success'
-      );
-    } else {
-      newCoords = userCoords;
-      addToast('Showing all registered artisans across Maharashtra.', 'info');
+      return;
     }
 
-    setUserCoords(newCoords);
-    setFilters(prev => ({ ...prev, city: cityName, location: 'all' }));
+    const found = MAHARASHTRA_DISTRICTS.find(d => d.id === districtName || d.name === districtName);
+    if (found) {
+      const newCoords = { lat: found.lat, lng: found.lng, name: `${found.name} Hub` };
+      setUserCoords(newCoords);
+      if (found.division) setUserDivision(found.division);
+      setFilters(prev => ({ ...prev, city: found.id, district: found.id, location: 'all' }));
 
-    // Recalculate distance for all workers relative to selected city
-    setWorkers(prev => prev.map(w => ({
-      ...w,
-      distanceKm: calculateClientDistance(newCoords.lat, newCoords.lng, w.lat, w.lng)
-    })));
+      // Recalculate distance for all workers relative to selected district
+      setWorkers(prev => prev.map(w => ({
+        ...w,
+        distanceKm: calculateClientDistance(newCoords.lat, newCoords.lng, w.lat ?? w.coordinates?.lat, w.lng ?? w.coordinates?.lng)
+      })));
+
+      addToast(
+        language === 'mr' ? `${found.nameMr} जिल्हा सक्रिय! स्थानिक मजूर नाके दाखवत आहे.` :
+        language === 'hi' ? `${found.name} जिला सक्रिय! स्थानीय मजदूर नाके दिखाए जा रहे हैं।` :
+        `Switched to ${found.name} Hub: Showing local chowks and verified artisans!`,
+        'success'
+      );
+    }
+  };
+
+  const selectCity = selectDistrict;
+
+  const selectDivision = (divisionId) => {
+    setUserDivision(divisionId);
+    if (divisionId === 'all') {
+      selectDistrict('all');
+    } else {
+      setFilters(prev => ({ ...prev, division: divisionId }));
+      const firstInDiv = MAHARASHTRA_DISTRICTS.find(d => d.division === divisionId);
+      if (firstInDiv) {
+        selectDistrict(firstInDiv.id);
+      }
+    }
   };
 
   // Fetch data
@@ -203,10 +234,17 @@ export function AppProvider({ children }) {
 
       if (workersRes.ok) {
         const rawWorkers = await workersRes.json();
-        const mappedWorkers = rawWorkers.map(w => ({
-          ...w,
-          distanceKm: calculateClientDistance(userCoords.lat, userCoords.lng, w.lat, w.lng)
-        }));
+        const mappedWorkers = rawWorkers.map(w => {
+          const wLat = w.lat !== undefined ? w.lat : (w.coordinates ? w.coordinates.lat : 18.5204);
+          const wLng = w.lng !== undefined ? w.lng : (w.coordinates ? w.coordinates.lng : 73.8567);
+          return {
+            ...w,
+            lat: wLat,
+            lng: wLng,
+            coordinates: { lat: wLat, lng: wLng },
+            distanceKm: calculateClientDistance(userCoords.lat, userCoords.lng, wLat, wLng)
+          };
+        });
         setWorkers(mappedWorkers);
       }
       if (jobsRes.ok) setJobs(await jobsRes.json());
@@ -484,6 +522,14 @@ export function AppProvider({ children }) {
         setSoundEnabled,
         userCity,
         setUserCity,
+        userDistrict,
+        setUserDistrict,
+        userDivision,
+        setUserDivision,
+        selectDistrict,
+        selectDivision,
+        maharashtraDivisions: MAHARASHTRA_DIVISIONS,
+        maharashtraDistricts: MAHARASHTRA_DISTRICTS,
         userCoords,
         setUserCoords,
         isLocating,

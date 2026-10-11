@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url';
 import { db } from './data/db.js';
 import { rankWorkers, calculateDistanceKm } from './ai/matchEngine.js';
 import { processAssistantMessage, translateText } from './ai/aiAssistant.js';
+import { MAHARASHTRA_DIVISIONS, MAHARASHTRA_DISTRICTS, findClosestDistrict } from './data/maharashtraData.js';
 
 dotenv.config();
 
@@ -30,17 +31,45 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', service: 'KaamSetu AI Core Server', time: new Date().toISOString() });
 });
 
+// Maharashtra Statewide Metadata Routes
+app.get('/api/maharashtra/districts', (req, res) => {
+  res.json({
+    divisions: MAHARASHTRA_DIVISIONS,
+    districts: MAHARASHTRA_DISTRICTS
+  });
+});
+
+app.get('/api/maharashtra/detect-hub', (req, res) => {
+  try {
+    const { lat, lng } = req.query;
+    if (!lat || !lng) return res.status(400).json({ error: 'lat and lng parameters are required' });
+    const result = findClosestDistrict(Number(lat), Number(lng));
+    res.json(result);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // Workers Routes
 app.get('/api/workers', (req, res) => {
   try {
     let workers = db.getWorkers();
-    const { trade, location, city, maxWage, availableOnly, search, userLat, userLng } = req.query;
+    const { trade, location, city, district, division, maxWage, availableOnly, search, userLat, userLng } = req.query;
 
-    if (city && city !== 'all') {
-      workers = workers.filter(w =>
-        (w.city && w.city.toLowerCase() === city.toLowerCase()) ||
-        w.location.toLowerCase().includes(city.toLowerCase())
-      );
+    const targetDistrict = (district || city || '').trim();
+    if (targetDistrict && targetDistrict.toLowerCase() !== 'all') {
+      workers = workers.filter(w => {
+        const wDist = (w.district || w.city || '').toLowerCase();
+        const wLoc = (w.location || '').toLowerCase();
+        return wDist === targetDistrict.toLowerCase() || wLoc.includes(targetDistrict.toLowerCase());
+      });
+    }
+
+    if (division && division.toLowerCase() !== 'all') {
+      workers = workers.filter(w => {
+        const wDiv = (w.division || '').toLowerCase();
+        return wDiv === division.toLowerCase() || wDiv.includes(division.toLowerCase());
+      });
     }
 
     if (trade && trade !== 'all') {
@@ -48,10 +77,11 @@ app.get('/api/workers', (req, res) => {
     }
 
     if (location && location !== 'all') {
-      workers = workers.filter(w =>
-        w.location.toLowerCase().includes(location.toLowerCase()) ||
-        (w.locationArea && w.locationArea.toLowerCase().includes(location.toLowerCase()))
-      );
+      workers = workers.filter(w => {
+        const wLoc = (w.location || '').toLowerCase();
+        const wArea = (w.locationArea || w.locality || '').toLowerCase();
+        return wLoc.includes(location.toLowerCase()) || wArea.includes(location.toLowerCase());
+      });
     }
 
     if (maxWage) {
@@ -70,21 +100,43 @@ app.get('/api/workers', (req, res) => {
         w.trade.toLowerCase().includes(q) ||
         (w.tradeMr && w.tradeMr.toLowerCase().includes(q)) ||
         (w.tradeHi && w.tradeHi.toLowerCase().includes(q)) ||
-        w.location.toLowerCase().includes(q) ||
-        w.skills.some(s => s.toLowerCase().includes(q))
+        (w.location && w.location.toLowerCase().includes(q)) ||
+        (w.skills && w.skills.some(s => s.toLowerCase().includes(q)))
       );
     }
 
-    // Dynamic distance calculation based on detected GPS or city center
-    const uLat = userLat ? Number(userLat) : (city === 'Kolhapur' ? 16.6946 : 18.5204);
-    const uLng = userLng ? Number(userLng) : (city === 'Kolhapur' ? 74.2238 : 73.8567);
+    // Default hub coordinates based on selected district or state center
+    let defaultLat = 18.5204;
+    let defaultLng = 73.8567;
+    if (targetDistrict && targetDistrict.toLowerCase() !== 'all') {
+      const foundDist = MAHARASHTRA_DISTRICTS.find(d =>
+        d.id.toLowerCase() === targetDistrict.toLowerCase() ||
+        d.name.toLowerCase() === targetDistrict.toLowerCase()
+      );
+      if (foundDist) {
+        defaultLat = foundDist.lat;
+        defaultLng = foundDist.lng;
+      }
+    }
+
+    const uLat = userLat ? Number(userLat) : defaultLat;
+    const uLng = userLng ? Number(userLng) : defaultLng;
 
     workers = workers.map(w => {
-      const dist = calculateDistanceKm(uLat, uLng, w.lat, w.lng);
+      const wLat = w.lat !== undefined ? w.lat : (w.coordinates ? w.coordinates.lat : 18.5204);
+      const wLng = w.lng !== undefined ? w.lng : (w.coordinates ? w.coordinates.lng : 73.8567);
+      const dist = calculateDistanceKm(uLat, uLng, wLat, wLng);
       return {
         ...w,
+        lat: wLat,
+        lng: wLng,
+        coordinates: { lat: wLat, lng: wLng },
+        district: w.district || (w.city === 'Kolhapur' ? 'Kolhapur' : w.city === 'Pune' ? 'Pune' : w.city),
+        division: w.division || (w.district === 'Kolhapur' || w.district === 'Pune' ? 'Western Maharashtra' : 'Maharashtra'),
+        location: w.location || (w.locality ? `${w.locality}, ${w.city || w.district}` : `${w.city || 'Maharashtra'}`),
+        locationArea: w.locationArea || w.locality || w.city,
         distanceKm: dist,
-        matchScore: w.matchScore || (w.id === 'w-1' || w.id === 'w-k1' ? 95 : 88)
+        matchScore: w.matchScore || (dist <= 3 ? 96 : dist <= 10 ? 92 : 86)
       };
     });
 
@@ -157,12 +209,25 @@ app.patch('/api/workers/:id', (req, res) => {
 // AI Match Engine Endpoint (Slide 6)
 app.post('/api/match', (req, res) => {
   try {
-    const { trade, location, city, userLat, userLng, budget, needDescription, experienceMin, availableTodayOnly } = req.body;
-    const allWorkers = db.getWorkers();
+    const { trade, location, city, district, division, userLat, userLng, budget, needDescription, experienceMin, availableTodayOnly } = req.body;
+    let allWorkers = db.getWorkers();
+
+    const targetDistrict = (district || city || '').trim();
+    if (targetDistrict && targetDistrict.toLowerCase() !== 'all') {
+      const filtered = allWorkers.filter(w => {
+        const wDist = (w.district || w.city || '').toLowerCase();
+        const wLoc = (w.location || '').toLowerCase();
+        return wDist === targetDistrict.toLowerCase() || wLoc.includes(targetDistrict.toLowerCase());
+      });
+      if (filtered.length > 0) {
+        allWorkers = filtered;
+      }
+    }
+
     const ranked = rankWorkers(allWorkers, {
       trade,
       location,
-      city,
+      city: targetDistrict,
       userLat,
       userLng,
       budget,
@@ -171,7 +236,7 @@ app.post('/api/match', (req, res) => {
       availableTodayOnly
     });
     res.json({
-      query: { trade, location, city, budget, needDescription },
+      query: { trade, location, city: targetDistrict, budget, needDescription },
       totalCandidates: allWorkers.length,
       recommendations: ranked
     });

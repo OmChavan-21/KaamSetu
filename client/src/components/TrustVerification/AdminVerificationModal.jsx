@@ -31,7 +31,7 @@ export function AdminVerificationModal() {
 
         <div className="flex items-center space-x-2 bg-emerald-50 px-4 py-2 rounded-2xl border border-emerald-200 text-xs font-bold text-emerald-900">
           <Users className="w-4 h-4 text-emerald-600" />
-          <span>{workers.length} Registered Artisans in Pune</span>
+          <span>{workers.length} Registered Artisans across Maharashtra</span>
         </div>
       </div>
 
@@ -41,7 +41,7 @@ export function AdminVerificationModal() {
             <tr className="border-b border-slate-200 bg-slate-50 text-slate-700 font-extrabold uppercase tracking-wider">
               <th className="py-3 px-4">Artisan</th>
               <th className="py-3 px-4">Trade & Exp</th>
-              <th className="py-3 px-4">Locality</th>
+              <th className="py-3 px-4">District & Chowk</th>
               <th className="py-3 px-4">Identity / OTP Proof</th>
               <th className="py-3 px-4">Skill Assessment</th>
               <th className="py-3 px-4 text-right">Admin Actions</th>
@@ -61,7 +61,7 @@ export function AdminVerificationModal() {
                   {worker.trade} <span className="text-slate-400">({worker.experienceYears} yrs)</span>
                 </td>
                 <td className="py-3.5 px-4 text-slate-600 font-medium">
-                  {worker.locationArea || worker.location}
+                  <span className="font-bold text-slate-800">{worker.district || worker.city}:</span> {worker.locationArea || worker.location}
                 </td>
                 <td className="py-3.5 px-4">
                   <span className={`inline-flex items-center space-x-1 px-2.5 py-1 rounded-xl font-bold ${

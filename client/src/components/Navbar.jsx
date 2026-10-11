@@ -26,6 +26,8 @@ export function Navbar({ onNavigateSection }) {
     setIsAuthModalOpen, 
     loginAsEmployer, 
     userCity,
+    userDistrict,
+    selectDistrict,
     selectCity,
     language, 
     setLanguage, 
@@ -154,14 +156,25 @@ export function Navbar({ onNavigateSection }) {
               </button>
             )}
 
-            {/* Quick City Switcher Pill */}
+            {/* Quick Maharashtra District Switcher Pill */}
             <button
-              onClick={() => selectCity(userCity === 'Kolhapur' ? 'Pune' : 'Kolhapur')}
+              onClick={() => {
+                const hubs = ['Kolhapur', 'Pune', 'Mumbai', 'Thane', 'Chhatrapati Sambhajinagar', 'Nagpur', 'Nashik', 'all'];
+                const currentIndex = hubs.indexOf(userDistrict);
+                const nextDistrict = hubs[(currentIndex + 1) % hubs.length];
+                selectDistrict(nextDistrict);
+              }}
               className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition cursor-pointer"
-              title="Click to toggle between Kolhapur and Pune"
+              title="Click to cycle through Maharashtra districts"
             >
               <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-              <span>{userCity === 'Kolhapur' ? 'कोल्हापूर' : userCity === 'Pune' ? 'पुणे' : 'सर्व शहरे'}</span>
+              <span>
+                {userDistrict === 'all' 
+                  ? '🚩 MH State' 
+                  : userDistrict === 'Chhatrapati Sambhajinagar'
+                  ? 'संभाजीनगर'
+                  : userDistrict}
+              </span>
             </button>
 
             {/* Language Selector */}

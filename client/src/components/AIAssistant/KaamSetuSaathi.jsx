@@ -27,10 +27,10 @@ export function KaamSetuSaathi() {
     {
       sender: 'ai',
       text: language === 'mr' 
-        ? "नमस्कार! मी कामसेतू साथी आहे. तुम्हाला कोणत्या कामासाठी कुशल कारागीर हवा आहे? (उदा. 'मला कोथरूड मध्ये उद्यासाठी 600 रुपयांपर्यंत इलेक्ट्रिशियन हवा आहे')"
+        ? "नमस्कार! मी कामसेतू साथी आहे. तुम्हाला महाराष्ट्रात कोठेही (कोल्हापूर, पुणे, मुंबई, नागपूर, नाशिक, संभाजीनगर...) कोणत्या कामासाठी कुशल कारागीर हवा आहे? (उदा. 'मला कोल्हापूर बिंदू चौक येथे प्लंबर हवा आहे')"
         : language === 'hi'
-        ? "नमस्ते! मैं कामसेतू साथी हूँ। आपको किस काम के लिए कारीगर चाहिए? (उदा. 'मुझे कोथरूड में कल के लिए 600 रुपये तक इलेक्ट्रीशियन चाहिए')"
-        : "Hello! I am KaamSetu Saathi. Tell me what worker you need in Pune, in English, Marathi, or Hindi! (e.g. 'Need an electrician in Kothrud tomorrow under ₹650')",
+        ? "नमस्ते! मैं कामसेतू साथी हूँ। आपको पूरे महाराष्ट्र में (कोल्हापुर, पुणे, मुंबई, नागपुर, नासिक...) किस काम के लिए कुशल कारीगर चाहिए? (उदा. 'मुझे मुंबई दादर में इलेक्ट्रीशियन चाहिए')"
+        : "Hello! I am KaamSetu Saathi. Tell me what worker you need across Maharashtra (Kolhapur, Pune, Mumbai, Nagpur, Nashik, Sambhajinagar...), in English, Marathi, or Hindi! (e.g. 'Need a plumber in Kolhapur under ₹600')",
       filters: null
     }
   ]);
@@ -258,9 +258,10 @@ export function KaamSetuSaathi() {
         <div className="px-4 py-2 bg-white border-t border-slate-100 flex items-center gap-1.5 overflow-x-auto scrollbar-none text-[11px]">
           <span className="text-slate-400 font-bold shrink-0">Try:</span>
           {[
-            "Need an electrician in Kothrud for ₹650",
-            "मला कोथरूड मध्ये उद्यासाठी इलेक्ट्रिशियन हवा आहे",
-            "मुझे पाइप लीकेज ठीक करने के लिए प्लंबर चाहिए"
+            "कोल्हापूर बिंदू चौक येथे प्लंबर हवा आहे ₹550",
+            "Need emergency electrician in Dadar Mumbai under ₹700",
+            "नागपूर सीताबर्डी येथे वेल्डर किंवा वायरमन पाहिजे",
+            "Need painter in Nashik under ₹600"
           ].map((prompt, i) => (
             <button
               key={i}
