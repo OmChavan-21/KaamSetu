@@ -6,7 +6,19 @@ import confetti from 'canvas-confetti';
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
-  const [role, setRole] = useState('employer'); // 'employer' | 'worker' | 'admin'
+  // Authentication & Portal Isolation State
+  const [authRole, setAuthRole] = useState('employer'); // 'employer' | 'worker' | 'admin'
+  const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+  const [currentUser, setCurrentUser] = useState({
+    id: 'emp-101',
+    name: 'Aditya Deshmukh (Contractor)',
+    phone: '+91 98221 00011',
+    role: 'employer',
+    title: 'General Contractor • Pune'
+  });
+
   const [language, setLanguage] = useState('en'); // 'en' | 'mr' | 'hi'
   const [soundEnabled, setSoundEnabled] = useState(true);
   
@@ -15,10 +27,10 @@ export function AppProvider({ children }) {
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Active simulated worker identity when in worker mode (default to w-1 Sanjay More or w-2 Ramesh Pawar)
-  const [activeWorkerId, setActiveWorkerId] = useState('w-1');
+  // Active simulated worker identity when in worker mode (default to w-2 Ramesh Pawar)
+  const [activeWorkerId, setActiveWorkerId] = useState('w-2');
 
-  // Filters state
+  // Filters state (for employer search)
   const [filters, setFilters] = useState({
     trade: 'all',
     location: 'all',
@@ -81,13 +93,79 @@ export function AppProvider({ children }) {
     fetchData();
   }, []);
 
+  // Authentication Switcher Methods
+  const loginAsEmployer = (userData) => {
+    setAuthRole('employer');
+    setCurrentUser({
+      id: userData?.id || 'emp-101',
+      name: userData?.name || 'Aditya Deshmukh (Contractor)',
+      phone: userData?.phone || '+91 98221 00011',
+      role: 'employer',
+      title: 'Customer / Contractor'
+    });
+    if (soundEnabled) sound.playSuccess();
+    addToast(
+      language === 'mr' ? 'ग्राहक पोर्टलवर स्वागत आहे!' :
+      language === 'hi' ? 'ग्राहक पोर्टल में आपका स्वागत है!' :
+      'Switched to Customer / Employer Portal!',
+      'success'
+    );
+  };
+
+  const loginAsWorker = (workerUser) => {
+    setAuthRole('worker');
+    setActiveWorkerId(workerUser.id);
+    setCurrentUser({
+      id: workerUser.id,
+      name: workerUser.name,
+      phone: workerUser.phone || '+91 98000 00000',
+      role: 'worker',
+      trade: workerUser.trade,
+      title: `${workerUser.trade} • ${workerUser.locationArea || workerUser.location}`
+    });
+    if (soundEnabled) sound.playSuccess();
+    addToast(
+      language === 'mr' ? `स्वागत आहे, ${workerUser.name}! कारागीर स्टेशन उघडले आहे.` :
+      language === 'hi' ? `स्वागत है, ${workerUser.name}! कारीगर स्टेशन सक्रिय है।` :
+      `Logged in as ${workerUser.name} (${workerUser.trade})!`,
+      'success'
+    );
+  };
+
+  const loginAsAdmin = (pin) => {
+    if (pin === 'admin123' || pin === 'kaamsetu2026') {
+      setIsAdminAuthenticated(true);
+      setAuthRole('admin');
+      setCurrentUser({
+        id: 'admin-01',
+        name: 'Chief Verification Officer',
+        role: 'admin',
+        title: 'Trust & Verification Registrar'
+      });
+      if (soundEnabled) sound.playSuccess();
+      addToast('Trust Admin Portal Unlocked!', 'success');
+      return true;
+    }
+    return false;
+  };
+
+  const logout = () => {
+    setIsAuthModalOpen(true);
+  };
+
   // Dispatch Job Request
   const sendJobRequest = async (jobPayload) => {
     try {
+      const payload = {
+        ...jobPayload,
+        employerName: currentUser.name,
+        employerPhone: currentUser.phone
+      };
+
       const res = await fetch('/api/jobs', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(jobPayload)
+        body: JSON.stringify(payload)
       });
       if (res.ok) {
         const createdJob = await res.json();
@@ -142,7 +220,7 @@ export function AppProvider({ children }) {
           );
         }
 
-        // Refresh analytics & workers to reflect rating/earnings updates
+        // Refresh analytics & workers
         fetch('/api/analytics').then(r => r.json()).then(setAnalytics).catch(() => {});
         fetch('/api/workers').then(r => r.json()).then(setWorkers).catch(() => {});
         return updated;
@@ -199,6 +277,25 @@ export function AppProvider({ children }) {
     }
   };
 
+  // Register New Worker
+  const registerWorker = async (workerData) => {
+    try {
+      const res = await fetch('/api/workers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(workerData)
+      });
+      if (res.ok) {
+        const createdWorker = await res.json();
+        setWorkers(prev => [createdWorker, ...prev]);
+        loginAsWorker(createdWorker);
+        return createdWorker;
+      }
+    } catch (err) {
+      addToast('Error registering worker', 'alert');
+    }
+  };
+
   // AI Matching Hook
   const runAiMatch = async (requirement) => {
     try {
@@ -223,32 +320,6 @@ export function AppProvider({ children }) {
     }
   };
 
-  // Register New Worker
-  const registerWorker = async (workerData) => {
-    try {
-      const res = await fetch('/api/workers', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(workerData)
-      });
-      if (res.ok) {
-        const createdWorker = await res.json();
-        setWorkers(prev => [createdWorker, ...prev]);
-        setActiveWorkerId(createdWorker.id);
-        if (soundEnabled) sound.playSuccess();
-        addToast(
-          language === 'mr' ? 'नवीन कारागीर नोंदणी यशस्वी झाली!' :
-          language === 'hi' ? 'नए कारीगर का पंजीकरण सफल हुआ!' :
-          'Artisan registered successfully on Digital Chowk!',
-          'success'
-        );
-        return createdWorker;
-      }
-    } catch (err) {
-      addToast('Error registering worker', 'alert');
-    }
-  };
-
   // Reset Demo
   const resetDemo = async () => {
     try {
@@ -267,8 +338,17 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
-        role,
-        setRole,
+        role: authRole,
+        authRole,
+        setRole: setAuthRole,
+        currentUser,
+        isAdminAuthenticated,
+        isAuthModalOpen,
+        setIsAuthModalOpen,
+        loginAsEmployer,
+        loginAsWorker,
+        loginAsAdmin,
+        logout,
         language,
         setLanguage,
         soundEnabled,
