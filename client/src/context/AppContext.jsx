@@ -3,6 +3,21 @@ import { translations } from '../i18n/translations';
 import { sound } from '../utils/sound';
 import confetti from 'canvas-confetti';
 
+// Earth radius distance calculation (Haversine formula in km)
+export function calculateClientDistance(lat1, lon1, lat2, lon2) {
+  if (!lat1 || !lon1 || !lat2 || !lon2) return 3.5;
+  const R = 6371;
+  const dLat = (lat2 - lat1) * Math.PI / 180;
+  const dLon = (lon2 - lon1) * Math.PI / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) * Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  const dist = Math.round(R * c * 10) / 10;
+  return isNaN(dist) ? 3.5 : dist;
+}
+
 const AppContext = createContext();
 
 export function AppProvider({ children }) {
@@ -22,22 +37,33 @@ export function AppProvider({ children }) {
   const [language, setLanguage] = useState('en'); // 'en' | 'mr' | 'hi'
   const [soundEnabled, setSoundEnabled] = useState(true);
   
+  // Geolocation & City State (Defaults to Kolhapur as requested)
+  const [userCity, setUserCity] = useState('Kolhapur'); // 'Kolhapur' | 'Pune' | 'all'
+  const [userCoords, setUserCoords] = useState({
+    lat: 16.6946,
+    lng: 74.2238,
+    name: 'Kolhapur Central (Bindu Chowk)'
+  });
+  const [isLocating, setIsLocating] = useState(false);
+  const [locationStatus, setLocationStatus] = useState('active'); // 'detected' | 'manual' | 'active'
+
   const [workers, setWorkers] = useState([]);
   const [jobs, setJobs] = useState([]);
   const [analytics, setAnalytics] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Active simulated worker identity when in worker mode (default to w-2 Ramesh Pawar)
-  const [activeWorkerId, setActiveWorkerId] = useState('w-2');
+  // Active simulated worker identity when in worker mode (default to w-k1 Bandu Patil when Kolhapur or w-2 Ramesh Pawar)
+  const [activeWorkerId, setActiveWorkerId] = useState('w-k1');
 
   // Filters state (for employer search)
   const [filters, setFilters] = useState({
+    city: 'Kolhapur',
     trade: 'all',
     location: 'all',
     maxWage: 1000,
     availableOnly: false,
     search: '',
-    sortBy: 'aiMatch' // 'aiMatch' | 'rating' | 'wageLow' | 'distance'
+    sortBy: 'distance' // default to closest distance
   });
 
   // Active Modals state
@@ -69,6 +95,102 @@ export function AppProvider({ children }) {
     return translations[language]?.[key] || translations.en[key] || key;
   };
 
+  // Geolocation detection method
+  const detectUserLocation = () => {
+    if (!navigator.geolocation) {
+      addToast('Geolocation is not supported by your browser.', 'alert');
+      return;
+    }
+    setIsLocating(true);
+    addToast(
+      language === 'mr' ? 'GPS स्थान शोधत आहे...' :
+      language === 'hi' ? 'GPS स्थान खोजा जा रहा है...' :
+      'Detecting live GPS coordinates...',
+      'info'
+    );
+
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude, accuracy } = pos.coords;
+        // Check proximity: Kolhapur center (16.7050, 74.2433) vs Pune center (18.5204, 73.8567)
+        const distToKolhapur = calculateClientDistance(latitude, longitude, 16.7050, 74.2433);
+        const distToPune = calculateClientDistance(latitude, longitude, 18.5204, 73.8567);
+        const detectedCity = distToKolhapur < distToPune ? 'Kolhapur' : 'Pune';
+
+        const newCoords = {
+          lat: latitude,
+          lng: longitude,
+          accuracy,
+          name: `${detectedCity} (Live GPS)`
+        };
+
+        setUserCoords(newCoords);
+        setUserCity(detectedCity);
+        setFilters(prev => ({ ...prev, city: detectedCity, location: 'all' }));
+        setLocationStatus('detected');
+        setIsLocating(false);
+
+        // Dynamically recalculate distances for all loaded workers
+        setWorkers(prev => prev.map(w => ({
+          ...w,
+          distanceKm: calculateClientDistance(latitude, longitude, w.lat, w.lng)
+        })));
+
+        addToast(
+          language === 'mr' ? `स्थान निश्चित झाले: ${detectedCity === 'Kolhapur' ? 'कोल्हापूर' : 'पुणे'}! जवळील कारागीर दाखवत आहे.` :
+          language === 'hi' ? `स्थान मिला: ${detectedCity}! आस-पास के कारीगर दिखाए जा रहे हैं।` :
+          `Live GPS Detected: ${detectedCity}! Showing nearest verified artisans.`,
+          'success'
+        );
+      },
+      (err) => {
+        setIsLocating(false);
+        console.warn('Geolocation failed:', err.message);
+        addToast(
+          language === 'mr' ? 'GPS परवानगी नाकारली. तुम्ही मॅन्युअली कोल्हापूर किंवा पुणे निवडू शकता.' :
+          'GPS access denied or unavailable. You can easily switch city manually.',
+          'alert'
+        );
+      },
+      { timeout: 10000, enableHighAccuracy: true }
+    );
+  };
+
+  // Manual city selection method
+  const selectCity = (cityName) => {
+    setUserCity(cityName);
+    setLocationStatus('manual');
+
+    let newCoords;
+    if (cityName === 'Kolhapur') {
+      newCoords = { lat: 16.6946, lng: 74.2238, name: 'Kolhapur Central (Bindu Chowk)' };
+      addToast(
+        language === 'mr' ? 'कोल्हापूर शहर सक्रिय: बिंदू चौक, राजारामपुरी व शाहूपुरी कारागीर!' :
+        'Switched to Kolhapur: Showing Bindu Chowk, Rajarampuri & Kolhapur artisans!',
+        'success'
+      );
+    } else if (cityName === 'Pune') {
+      newCoords = { lat: 18.5204, lng: 73.8567, name: 'Pune Central (Swargate/Shivajinagar)' };
+      addToast(
+        language === 'mr' ? 'पुणे शहर सक्रिय: स्वारगेट, कोथरूड व पिंपरी कारागीर!' :
+        'Switched to Pune: Showing Swargate, Kothrud & Pune artisans!',
+        'success'
+      );
+    } else {
+      newCoords = userCoords;
+      addToast('Showing all registered artisans across Maharashtra.', 'info');
+    }
+
+    setUserCoords(newCoords);
+    setFilters(prev => ({ ...prev, city: cityName, location: 'all' }));
+
+    // Recalculate distance for all workers relative to selected city
+    setWorkers(prev => prev.map(w => ({
+      ...w,
+      distanceKm: calculateClientDistance(newCoords.lat, newCoords.lng, w.lat, w.lng)
+    })));
+  };
+
   // Fetch data
   const fetchData = async () => {
     try {
@@ -79,7 +201,14 @@ export function AppProvider({ children }) {
         fetch('/api/analytics')
       ]);
 
-      if (workersRes.ok) setWorkers(await workersRes.json());
+      if (workersRes.ok) {
+        const rawWorkers = await workersRes.json();
+        const mappedWorkers = rawWorkers.map(w => ({
+          ...w,
+          distanceKm: calculateClientDistance(userCoords.lat, userCoords.lng, w.lat, w.lng)
+        }));
+        setWorkers(mappedWorkers);
+      }
       if (jobsRes.ok) setJobs(await jobsRes.json());
       if (analyticsRes.ok) setAnalytics(await analyticsRes.json());
     } catch (err) {
@@ -353,6 +482,15 @@ export function AppProvider({ children }) {
         setLanguage,
         soundEnabled,
         setSoundEnabled,
+        userCity,
+        setUserCity,
+        userCoords,
+        setUserCoords,
+        isLocating,
+        locationStatus,
+        detectUserLocation,
+        selectCity,
+        calculateClientDistance,
         workers,
         setWorkers,
         jobs,

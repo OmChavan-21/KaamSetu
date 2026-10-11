@@ -17,6 +17,20 @@ export const PUNE_LOCALITY_MAP = {
   camp: { lat: 18.5144, lng: 73.8781, aliases: ['camp', 'कॅम्प', 'cantonment', 'mg road'] }
 };
 
+export const KOLHAPUR_LOCALITY_MAP = {
+  binduchowk: { lat: 16.6946, lng: 74.2238, aliases: ['bindu chowk', 'बिंदू चौक', 'bindu', 'mahalaxmi', 'laxmipuri', 'bazaar'] },
+  rajarampuri: { lat: 16.6923, lng: 74.2486, aliases: ['rajarampuri', 'राजारामपुरी', 'takala'] },
+  shahupuri: { lat: 16.7027, lng: 74.2384, aliases: ['shahupuri', 'शाहूपुरी', 'station road'] },
+  tarabaipark: { lat: 16.7099, lng: 74.2294, aliases: ['tarabai park', 'ताराबाई पार्क', 'nagala park'] },
+  rankala: { lat: 16.6874, lng: 74.2127, aliases: ['rankala', 'रंकाळा', 'mangalwar peth', 'shaniwar peth'] },
+  shiroli: { lat: 16.7578, lng: 74.2829, aliases: ['shiroli', 'शिरोली', 'shiroli midc', 'naka'] },
+  gokulshirgaon: { lat: 16.6401, lng: 74.2690, aliases: ['gokul shirgaon', 'गोकुळ शिरगाव', 'gokul midc'] },
+  gandhinagar: { lat: 16.7082, lng: 74.2842, aliases: ['gandhinagar', 'गांधीनगर'] },
+  kasbabawada: { lat: 16.7262, lng: 74.2443, aliases: ['kasba bawada', 'कसबा बावडा', 'bawada'] }
+};
+
+export const ALL_LOCALITIES = { ...PUNE_LOCALITY_MAP, ...KOLHAPUR_LOCALITY_MAP };
+
 export const TRADE_ALIASES = {
   Electrician: ['electrician', 'वायरमन', 'इलेक्ट्रिशियन', 'इलेक्ट्रीशियन', 'विजेचे काम', 'बिजली', 'wiring', 'wireman'],
   Plumber: ['plumber', 'प्लंबर', 'नळ कारागीर', 'नल मिस्त्री', 'pipe', 'leakage', 'गळती', 'नळ'],
@@ -43,19 +57,22 @@ export function calculateDistanceKm(lat1, lon1, lat2, lon2) {
 export function rankWorkers(workers, requirement = {}) {
   const {
     trade = '',
-    location = 'Pune',
+    location = 'Kolhapur',
+    city = 'Kolhapur',
+    userLat,
+    userLng,
     budget = 700,
     needDescription = '',
     experienceMin = 0,
     availableTodayOnly = false
   } = requirement;
 
-  // Resolve employer coordinates matching aliases
-  let employerLat = 18.5204;
-  let employerLng = 73.8567;
+  // Resolve employer coordinates: Use exact GPS if provided, else city/locality lookup
+  let employerLat = userLat ? Number(userLat) : (city === 'Kolhapur' || location.toLowerCase().includes('kolhapur') ? 16.6946 : 18.5204);
+  let employerLng = userLng ? Number(userLng) : (city === 'Kolhapur' || location.toLowerCase().includes('kolhapur') ? 74.2238 : 73.8567);
   const locLower = (location || '').toLowerCase().trim();
 
-  for (const [key, meta] of Object.entries(PUNE_LOCALITY_MAP)) {
+  for (const [key, meta] of Object.entries(ALL_LOCALITIES)) {
     if (meta.aliases.some(alias => locLower.includes(alias.toLowerCase()))) {
       employerLat = meta.lat;
       employerLng = meta.lng;

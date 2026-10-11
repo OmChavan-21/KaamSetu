@@ -3,7 +3,7 @@ import { useApp } from '../../context/AppContext';
 import { Clock, ShieldCheck, Zap, TrendingUp, Sparkles, MapPin } from 'lucide-react';
 
 export function HeroBanner() {
-  const { t, analytics, setShowAiAssistant } = useApp();
+  const { t, analytics, setShowAiAssistant, userCity, userCoords } = useApp();
 
   return (
     <div className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-800 to-emerald-950 text-white rounded-3xl p-6 sm:p-10 mb-8 border border-slate-700/60 shadow-2xl">
@@ -15,12 +15,16 @@ export function HeroBanner() {
         <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
           <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-400/30 text-emerald-300 text-xs font-bold tracking-wide uppercase">
             <Sparkles className="w-3.5 h-3.5 text-emerald-400" />
-            <span>AI + FULL-STACK WEB • PUNE CLUSTER PILOT</span>
+            <span>AI + FULL-STACK WEB • {userCity === 'Kolhapur' ? 'KOLHAPUR PILOT CLUSTER' : 'PUNE PILOT CLUSTER'}</span>
           </div>
 
           <div className="flex items-center space-x-2 text-xs text-slate-300 bg-slate-800/80 px-3 py-1.5 rounded-xl border border-slate-700">
             <MapPin className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Pune • Pimpri-Chinchwad • Hadapsar • Kothrud</span>
+            <span>
+              {userCity === 'Kolhapur' 
+                ? 'Kolhapur • Bindu Chowk • Rajarampuri • Shahupuri • Shiroli'
+                : 'Pune • Pimpri-Chinchwad • Hadapsar • Kothrud • Swargate'}
+            </span>
           </div>
         </div>
 

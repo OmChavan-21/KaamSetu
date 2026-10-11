@@ -28,6 +28,9 @@ class Database {
       if (fs.existsSync(DB_FILE)) {
         const fileContent = fs.readFileSync(DB_FILE, 'utf-8');
         this.data = JSON.parse(fileContent);
+        if (!this.data.workers || !this.data.workers.some(w => w.id === 'w-k1')) {
+          this.reset();
+        }
       } else {
         this.save();
       }

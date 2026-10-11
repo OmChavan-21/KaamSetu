@@ -12,18 +12,47 @@ import {
   Info 
 } from 'lucide-react';
 
+const KOLHAPUR_LANDMARKS = [
+  { name: 'Bindu Chowk (मजूर नाका)', lat: 16.6946, lng: 74.2238 },
+  { name: 'Rajarampuri', lat: 16.6923, lng: 74.2486 },
+  { name: 'Shahupuri', lat: 16.7027, lng: 74.2384 },
+  { name: 'Tarabai Park', lat: 16.7099, lng: 74.2294 },
+  { name: 'Rankala Chowk', lat: 16.6874, lng: 74.2127 },
+  { name: 'Shiroli MIDC', lat: 16.7578, lng: 74.2829 },
+  { name: 'Gandhinagar', lat: 16.7082, lng: 74.2842 }
+];
+
+const PUNE_LANDMARKS = [
+  { name: 'Kothrud', lat: 18.5074, lng: 73.8077 },
+  { name: 'Swargate', lat: 18.5018, lng: 73.8580 },
+  { name: 'Pimpri-Chinchwad', lat: 18.6298, lng: 73.7997 },
+  { name: 'Hadapsar', lat: 18.5089, lng: 73.9259 },
+  { name: 'Katraj', lat: 18.4575, lng: 73.8677 },
+  { name: 'Baner', lat: 18.5590, lng: 73.7868 },
+  { name: 'Wagholi', lat: 18.5793, lng: 73.9829 },
+  { name: 'Bhosari MIDC', lat: 18.6258, lng: 73.8447 }
+];
+
 export function VirtualChowkMap({ workers }) {
-  const { setSelectedWorkerForJob, setSelectedWorkerForProfile, language, t } = useApp();
+  const { 
+    setSelectedWorkerForJob, 
+    setSelectedWorkerForProfile, 
+    userCity, 
+    userCoords, 
+    language, 
+    t 
+  } = useApp();
+
   const [selectedMapWorker, setSelectedMapWorker] = useState(null);
   const [activeRadiusKm, setActiveRadiusKm] = useState(15);
 
-  // Pune bounding box normalization for SVG map projection
-  // Pune Lat range: ~18.44 (Katraj) to ~18.64 (Pimpri/Bhosari)
-  // Pune Lng range: ~73.72 (Hinjewadi) to ~74.00 (Wagholi)
-  const minLat = 18.44;
-  const maxLat = 18.65;
-  const minLng = 73.72;
-  const maxLng = 74.00;
+  const isKolhapur = userCity === 'Kolhapur' || (!userCity && true);
+
+  // Dynamic map bounding box based on active region
+  const minLat = isKolhapur ? 16.63 : 18.44;
+  const maxLat = isKolhapur ? 16.78 : 18.65;
+  const minLng = isKolhapur ? 74.18 : 73.72;
+  const maxLng = isKolhapur ? 74.31 : 74.00;
 
   const projectToMapCoords = (lat, lng) => {
     const xPercent = ((lng - minLng) / (maxLng - minLng)) * 100;
@@ -34,8 +63,10 @@ export function VirtualChowkMap({ workers }) {
     };
   };
 
-  // Center / Employer location (Swargate/Shivajinagar Central Pune: 18.5204, 73.8567)
-  const centerCoords = projectToMapCoords(18.5204, 73.8567);
+  // Center on user's active coords (Kolhapur Bindu Chowk or Pune Center)
+  const centerCoords = projectToMapCoords(userCoords.lat, userCoords.lng);
+
+  const landmarks = isKolhapur ? KOLHAPUR_LANDMARKS : PUNE_LANDMARKS;
 
   const filteredWorkers = workers.filter(w => (w.distanceKm || 5) <= activeRadiusKm);
 
@@ -52,16 +83,18 @@ export function VirtualChowkMap({ workers }) {
           <div className="flex items-center space-x-2">
             <Radio className="w-5 h-5 text-emerald-400 animate-pulse" />
             <h3 className="text-xl sm:text-2xl font-black tracking-tight text-white">
-              {language === 'mr' ? 'आभासी मजूर नाका (Virtual Chowk Radar)' : 'Virtual Chowk Live Radar'}
+              {language === 'mr' 
+                ? `आभासी मजूर नाका (Virtual Chowk Radar) • ${isKolhapur ? 'कोल्हापूर' : 'पुणे'}`
+                : `Virtual Chowk Live Radar • ${isKolhapur ? 'Kolhapur' : 'Pune'}`}
             </h3>
             <span className="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
-              Live Pune
+              Live {isKolhapur ? 'Kolhapur' : 'Pune'}
             </span>
           </div>
           <p className="text-xs text-slate-400 mt-1">
             {language === 'mr' 
-              ? 'भौतिक मजूर नाक्यावर तासनतास थांबण्याऐवजी, थेट नकाशावर उपलब्ध कारागीर शोधा.'
-              : 'Instead of standing at physical chowks, workers broadcast live availability across Pune.'}
+              ? `भौतिक मजूर नाक्यावर (उदा. ${isKolhapur ? 'बिंदू चौक, शिरोली नाका' : 'स्वारगेट, कात्रज'}) तासनतास थांबण्याऐवजी, नकाशावर थेट कारागीर शोधा.`
+              : `Instead of waiting at physical labor chowks (like ${isKolhapur ? 'Bindu Chowk or Shiroli Naka' : 'Swargate or Katraj Chowk'}), workers broadcast live availability.`}
           </p>
         </div>
 
@@ -72,9 +105,9 @@ export function VirtualChowkMap({ workers }) {
           <span className="text-xs font-black text-emerald-400">{activeRadiusKm} km</span>
           <input
             type="range"
-            min="5"
+            min="3"
             max="25"
-            step="2"
+            step="1"
             value={activeRadiusKm}
             onChange={(e) => setActiveRadiusKm(Number(e.target.value))}
             className="w-24 accent-emerald-500 cursor-pointer"
@@ -95,9 +128,9 @@ export function VirtualChowkMap({ workers }) {
           }}
         />
 
-        {/* Concentric radar rings centered on Pune */}
+        {/* Concentric radar rings centered on active coordinate */}
         <div 
-          className="absolute rounded-full border border-emerald-500/20 pointer-events-none"
+          className="absolute rounded-full border border-emerald-500/25 pointer-events-none"
           style={{
             width: '180px',
             height: '180px',
@@ -158,22 +191,13 @@ export function VirtualChowkMap({ workers }) {
         >
           <div className="w-5 h-5 rounded-full bg-cyan-400 ring-4 ring-cyan-500/40 shadow-lg shadow-cyan-400/50 animate-ping" />
           <div className="w-4 h-4 rounded-full bg-cyan-300 absolute" />
-          <span className="text-[10px] font-black text-cyan-300 bg-slate-900/90 px-2 py-0.5 rounded-md mt-6 border border-cyan-500/40 whitespace-nowrap">
-            Your Location (Shivaji Nagar)
+          <span className="text-[10px] font-black text-cyan-300 bg-slate-900/90 px-2 py-0.5 rounded-md mt-6 border border-cyan-500/40 whitespace-nowrap shadow-md">
+            📍 {userCoords.name || (isKolhapur ? 'Kolhapur Central' : 'Pune Central')}
           </span>
         </div>
 
         {/* Locality Reference Labels */}
-        {[
-          { name: 'Kothrud', lat: 18.5074, lng: 73.8077 },
-          { name: 'Swargate', lat: 18.5018, lng: 73.8580 },
-          { name: 'Pimpri-Chinchwad', lat: 18.6298, lng: 73.7997 },
-          { name: 'Hadapsar', lat: 18.5089, lng: 73.9259 },
-          { name: 'Katraj', lat: 18.4575, lng: 73.8677 },
-          { name: 'Baner', lat: 18.5590, lng: 73.7868 },
-          { name: 'Wagholi', lat: 18.5793, lng: 73.9829 },
-          { name: 'Bhosari MIDC', lat: 18.6258, lng: 73.8447 }
-        ].map((loc, idx) => {
+        {landmarks.map((loc, idx) => {
           const coords = projectToMapCoords(loc.lat, loc.lng);
           return (
             <div
@@ -228,7 +252,7 @@ export function VirtualChowkMap({ workers }) {
 
               {/* Compact Name Tag */}
               <div className="absolute top-11 left-1/2 -translate-x-1/2 whitespace-nowrap bg-slate-900/90 text-slate-200 text-[10px] font-bold px-2 py-0.5 rounded-lg border border-slate-700 shadow-md">
-                {worker.name} • ₹{worker.dailyWage}
+                {worker.name} • {worker.distanceKm ? `${worker.distanceKm}km` : `₹${worker.dailyWage}`}
               </div>
             </div>
           );
@@ -267,7 +291,7 @@ export function VirtualChowkMap({ workers }) {
             <div className="text-[11px] text-slate-300 bg-slate-800/80 p-2 rounded-xl mb-3 border border-slate-700/60">
               <div className="flex items-center justify-between">
                 <span>Distance from you:</span>
-                <span className="font-bold text-white">{selectedMapWorker.distanceKm || 3.2} km</span>
+                <span className="font-bold text-white">{selectedMapWorker.distanceKm || 1.2} km</span>
               </div>
               <div className="flex items-center justify-between mt-1">
                 <span>Locality:</span>
@@ -275,7 +299,7 @@ export function VirtualChowkMap({ workers }) {
               </div>
               <div className="flex items-center justify-between mt-1">
                 <span>AI Match:</span>
-                <span className="font-bold text-emerald-400">{selectedMapWorker.matchScore || 92}% Fit</span>
+                <span className="font-bold text-emerald-400">{selectedMapWorker.matchScore || 95}% Fit</span>
               </div>
             </div>
 
@@ -309,7 +333,7 @@ export function VirtualChowkMap({ workers }) {
           </div>
           <div className="flex items-center space-x-1.5">
             <span className="w-3 h-3 rounded-full bg-cyan-400 inline-block" />
-            <span>Employer Center (You)</span>
+            <span>Your Center ({userCity || 'Kolhapur'})</span>
           </div>
         </div>
         <div>

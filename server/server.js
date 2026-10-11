@@ -34,7 +34,14 @@ app.get('/api/health', (req, res) => {
 app.get('/api/workers', (req, res) => {
   try {
     let workers = db.getWorkers();
-    const { trade, location, maxWage, availableOnly, search } = req.query;
+    const { trade, location, city, maxWage, availableOnly, search, userLat, userLng } = req.query;
+
+    if (city && city !== 'all') {
+      workers = workers.filter(w =>
+        (w.city && w.city.toLowerCase() === city.toLowerCase()) ||
+        w.location.toLowerCase().includes(city.toLowerCase())
+      );
+    }
 
     if (trade && trade !== 'all') {
       workers = workers.filter(w => w.trade.toLowerCase() === trade.toLowerCase());
@@ -68,13 +75,16 @@ app.get('/api/workers', (req, res) => {
       );
     }
 
-    // Ensure baseline distanceKm and matchScore exist
+    // Dynamic distance calculation based on detected GPS or city center
+    const uLat = userLat ? Number(userLat) : (city === 'Kolhapur' ? 16.6946 : 18.5204);
+    const uLng = userLng ? Number(userLng) : (city === 'Kolhapur' ? 74.2238 : 73.8567);
+
     workers = workers.map(w => {
-      const dist = w.distanceKm || calculateDistanceKm(18.5204, 73.8567, w.lat, w.lng);
+      const dist = calculateDistanceKm(uLat, uLng, w.lat, w.lng);
       return {
         ...w,
         distanceKm: dist,
-        matchScore: w.matchScore || (w.id === 'w-1' ? 94 : w.id === 'w-2' ? 91 : w.id === 'w-3' ? 87 : 85)
+        matchScore: w.matchScore || (w.id === 'w-1' || w.id === 'w-k1' ? 95 : 88)
       };
     });
 
@@ -147,18 +157,21 @@ app.patch('/api/workers/:id', (req, res) => {
 // AI Match Engine Endpoint (Slide 6)
 app.post('/api/match', (req, res) => {
   try {
-    const { trade, location, budget, needDescription, experienceMin, availableTodayOnly } = req.body;
+    const { trade, location, city, userLat, userLng, budget, needDescription, experienceMin, availableTodayOnly } = req.body;
     const allWorkers = db.getWorkers();
     const ranked = rankWorkers(allWorkers, {
       trade,
       location,
+      city,
+      userLat,
+      userLng,
       budget,
       needDescription,
       experienceMin,
       availableTodayOnly
     });
     res.json({
-      query: { trade, location, budget, needDescription },
+      query: { trade, location, city, budget, needDescription },
       totalCandidates: allWorkers.length,
       recommendations: ranked
     });

@@ -40,6 +40,8 @@ function MainLayout() {
     logout,
     loginAsEmployer,
     setIsAuthModalOpen,
+    userCity,
+    userCoords,
     workers, 
     loading, 
     viewMode, 
@@ -79,6 +81,14 @@ function MainLayout() {
 
   // In-memory client filtering for instantaneous reactivity
   let displayedWorkers = [...workers];
+
+  // City-level isolation: If Kolhapur or Pune is active, strictly show workers in that region
+  if (userCity && userCity !== 'all') {
+    displayedWorkers = displayedWorkers.filter(w =>
+      (w.city && w.city.toLowerCase() === userCity.toLowerCase()) ||
+      w.location.toLowerCase().includes(userCity.toLowerCase())
+    );
+  }
 
   if (filters.trade && filters.trade !== 'all') {
     displayedWorkers = displayedWorkers.filter(w =>
