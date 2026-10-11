@@ -1,0 +1,609 @@
+{
+  "workers": [
+    {
+      "id": "w-1",
+      "name": "Sanjay More",
+      "trade": "Electrician",
+      "tradeMr": "इलेक्ट्रिशियन",
+      "tradeHi": "इलेक्ट्रीशियन",
+      "experienceYears": 6,
+      "dailyWage": 650,
+      "hourlyWage": 120,
+      "rating": 4.9,
+      "reviewsCount": 36,
+      "location": "Swargate, Pune",
+      "locationArea": "Swargate",
+      "lat": 18.5018,
+      "lng": 73.858,
+      "phone": "+91 98220 14589",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar + Govt ITI Electrician Certificate",
+      "skills": [
+        "Residential Wiring",
+        "Shop Installation",
+        "MCB & Inverter Setup",
+        "Short Circuit Repair"
+      ],
+      "skillsMr": [
+        "घराचे वायरिंग",
+        "दुकान फिटिंग",
+        "इन्व्हर्टर दुरुस्ती",
+        "शॉर्ट सर्किट रिपेअर"
+      ],
+      "skillsHi": [
+        "घरेलू वायरिंग",
+        "दुकान फिटिंग",
+        "इन्वर्टर रिपेयर",
+        "शॉर्ट सर्किट सुधार"
+      ],
+      "bio": "6 years experience in residential and commercial electrical wiring across Pune. Punctual and safety certified.",
+      "bioMr": "पुणे शहरात 6 वर्षांचा घरगुती व व्यावसायिक वायरिंगचा अनुभव. वेळेचे पालन आणि सुरक्षित कामाची खात्री.",
+      "bioHi": "पुणे में 6 साल का घरेलू और व्यावसायिक वायरिंग का अनुभव। समय के पाबंद और सुरक्षित काम।",
+      "recentWork": [
+        {
+          "title": "Residential wiring",
+          "location": "Kothrud",
+          "rating": 5,
+          "wage": 650,
+          "date": "Yesterday"
+        },
+        {
+          "title": "Shop installation",
+          "location": "Camp",
+          "rating": 4.8,
+          "wage": 750,
+          "date": "3 days ago"
+        },
+        {
+          "title": "Home repair",
+          "location": "Swargate",
+          "rating": 4.9,
+          "wage": 500,
+          "date": "Last week"
+        }
+      ],
+      "completedJobsCount": 84,
+      "totalEarnings": 54600,
+      "matchScore": 94,
+      "distanceKm": 2.1,
+      "aiReason": "Electrician matched • Residential wiring specialist • Swargate (2.1 km) • 6 yrs exp"
+    },
+    {
+      "id": "w-2",
+      "name": "Ramesh Pawar",
+      "trade": "Electrician",
+      "tradeMr": "इलेक्ट्रिशियन",
+      "tradeHi": "इलेक्ट्रीशियन",
+      "experienceYears": 5,
+      "dailyWage": 600,
+      "hourlyWage": 100,
+      "rating": 4.8,
+      "reviewsCount": 28,
+      "location": "Kothrud, Pune",
+      "locationArea": "Kothrud",
+      "lat": 18.5074,
+      "lng": 73.8077,
+      "phone": "+91 97654 23891",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Card + Skill India Apprentice ID",
+      "skills": [
+        "Wiring",
+        "Repair",
+        "Installation",
+        "Fan & Geyser Fitting"
+      ],
+      "skillsMr": [
+        "वायरिंग",
+        "दुरुस्ती",
+        "फिटिंग",
+        "फॅन व गीझर इन्स्टॉलेशन"
+      ],
+      "skillsHi": [
+        "वायरिंग",
+        "मरम्मत",
+        "फिटिंग",
+        "पंखा और गीज़र सुधार"
+      ],
+      "bio": "Quick service for household electrical faults and new apartment wiring. Tools ready for immediate dispatch.",
+      "bioMr": "घरगुती विजेच्या दोषांचे त्वरित निवारण आणि नवीन फ्लॅट वायरिंग. सर्व अवजारे उपलब्ध.",
+      "bioHi": "घरेलू बिजली की समस्याओं का तुरंत समाधान और नए फ्लैट की वायरिंग। सभी औजार तैयार।",
+      "recentWork": [
+        {
+          "title": "Electrical repair",
+          "location": "Kothrud",
+          "rating": 4.9,
+          "wage": 600,
+          "date": "2 days ago"
+        },
+        {
+          "title": "Home wiring",
+          "location": "Karve Nagar",
+          "rating": 4.8,
+          "wage": 550,
+          "date": "5 days ago"
+        },
+        {
+          "title": "Switchboard fix",
+          "location": "Bavdhan",
+          "rating": 4.7,
+          "wage": 450,
+          "date": "Last week"
+        }
+      ],
+      "completedJobsCount": 65,
+      "totalEarnings": 39000,
+      "matchScore": 91,
+      "distanceKm": 3.4,
+      "aiReason": "Electrician matched • Wiring & Repair • Kothrud (3.4 km) • Fits ₹600 budget"
+    },
+    {
+      "id": "w-3",
+      "name": "Vikram Singh",
+      "trade": "Electrician",
+      "tradeMr": "इलेक्ट्रिशियन",
+      "tradeHi": "इलेक्ट्रीशियन",
+      "experienceYears": 4,
+      "dailyWage": 580,
+      "hourlyWage": 95,
+      "rating": 4.7,
+      "reviewsCount": 19,
+      "location": "Pimpri-Chinchwad, Pune",
+      "locationArea": "Pimpri",
+      "lat": 18.6298,
+      "lng": 73.7997,
+      "phone": "+91 94231 88902",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": false,
+      "idProofType": "Aadhaar Card",
+      "skills": [
+        "Industrial Wiring",
+        "Fuse & MCB Fixing",
+        "Motor Pump Repair"
+      ],
+      "skillsMr": [
+        "औद्योगिक वायरिंग",
+        "फ्यूज व एमसीबी दुरुस्ती",
+        "मोटर पंप रिपेअर"
+      ],
+      "skillsHi": [
+        "औद्योगिक वायरिंग",
+        "फ्यूज और एमसीबी सुधार",
+        "मोटर पंप मरम्मत"
+      ],
+      "bio": "Hardworking electrician specialized in building maintenance and industrial panels in PCMC area.",
+      "bioMr": "पिंपरी चिंचवड भागात औद्योगिक व घरगुती पॅनेल कामाचा 4 वर्षांचा अनुभव.",
+      "bioHi": "पीसीएमसी क्षेत्र में औद्योगिक और घरेलू पैनल कार्य में 4 साल का अनुभव।",
+      "recentWork": [
+        {
+          "title": "Pump starter wiring",
+          "location": "Pimpri",
+          "rating": 4.7,
+          "wage": 580,
+          "date": "3 days ago"
+        },
+        {
+          "title": "Workshop light setup",
+          "location": "Chikhali",
+          "rating": 4.6,
+          "wage": 700,
+          "date": "1 week ago"
+        }
+      ],
+      "completedJobsCount": 42,
+      "totalEarnings": 24360,
+      "matchScore": 87,
+      "distanceKm": 9.8,
+      "aiReason": "Electrician matched • Industrial & MCB • Pimpri • Best budget fit (₹580/day)"
+    },
+    {
+      "id": "w-4",
+      "name": "Rahul Kumar",
+      "trade": "Plumber",
+      "tradeMr": "प्लंबर (नळ कारागीर)",
+      "tradeHi": "प्लंबर (नल मिस्त्री)",
+      "experienceYears": 5,
+      "dailyWage": 550,
+      "hourlyWage": 90,
+      "rating": 4.6,
+      "reviewsCount": 22,
+      "location": "Hadapsar, Pune",
+      "locationArea": "Hadapsar",
+      "lat": 18.5089,
+      "lng": 73.9259,
+      "phone": "+91 98810 55412",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Card + Plumbing Trade Certificate",
+      "skills": [
+        "Pipe Fitting",
+        "Leakage Repair",
+        "Bathroom Sanitary",
+        "Water Tank Cleaning"
+      ],
+      "skillsMr": [
+        "पाईप फिटिंग",
+        "गळती दुरुस्ती",
+        "बाथरूम सॅनिटरी काम",
+        "टाकी स्वच्छता"
+      ],
+      "skillsHi": [
+        "पाइप फिटिंग",
+        "लीकेज मरम्मत",
+        "बाथरूम सैनिटरी कार्य",
+        "टंकी सफाई"
+      ],
+      "bio": "Expert in concealed piping, bathroom sanitary fittings, and overhead tank pipelines.",
+      "bioMr": "कन्सील्ड पाईप फिटिंग, बाथरूम नळ काम आणि टाकी जोडणीत तरबेज.",
+      "bioHi": "कंसील्ड पाइप फिटिंग और बाथरूम सैनिटरी कार्य में विशेषज्ञ।",
+      "recentWork": [
+        {
+          "title": "Bathroom leak fix",
+          "location": "Hadapsar",
+          "rating": 4.8,
+          "wage": 550,
+          "date": "Yesterday"
+        },
+        {
+          "title": "Water line connection",
+          "location": "Magarpatta",
+          "rating": 4.5,
+          "wage": 600,
+          "date": "4 days ago"
+        }
+      ],
+      "completedJobsCount": 51,
+      "totalEarnings": 28050,
+      "matchScore": 86,
+      "distanceKm": 7.2,
+      "aiReason": "Plumber matched • Leakage & Sanitary specialist • Hadapsar • ₹550/day"
+    },
+    {
+      "id": "w-5",
+      "name": "Sunita Kamble",
+      "trade": "Painter",
+      "tradeMr": "रंगारी (पेंटर)",
+      "tradeHi": "पेंटर (रंगसाज)",
+      "experienceYears": 7,
+      "dailyWage": 600,
+      "hourlyWage": 100,
+      "rating": 4.9,
+      "reviewsCount": 42,
+      "location": "Katraj, Pune",
+      "locationArea": "Katraj",
+      "lat": 18.4575,
+      "lng": 73.8677,
+      "phone": "+91 93700 91234",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Card + Asian Paints Master Applicator Badge",
+      "skills": [
+        "Wall Putty",
+        "Interior Emulsion",
+        "Waterproofing",
+        "Texture Painting"
+      ],
+      "skillsMr": [
+        "वॉल पुट्टी",
+        "रंगकाम",
+        "वॉटरप्रूफिंग",
+        "टेक्सचर डिझाईन"
+      ],
+      "skillsHi": [
+        "दीवार पुट्टी",
+        "इंटीरियर पेंट",
+        "वाटरप्रूफिंग",
+        "टेक्सचर पेंटिंग"
+      ],
+      "bio": "Smooth finish specialist. 7 years experience painting flats, offices, and bungalows across South Pune.",
+      "bioMr": "पुणे शहरात फ्लॅट, घरे व कार्यालयांचे दर्जेदार व टिकाऊ रंगकाम करण्याचा 7 वर्षांचा अनुभव.",
+      "bioHi": "पुणे में घरों और फ्लैटों के उच्च गुणवत्ता पेंटिंग का 7 साल का अनुभव।",
+      "recentWork": [
+        {
+          "title": "2BHK wall putty & paint",
+          "location": "Katraj",
+          "rating": 5,
+          "wage": 650,
+          "date": "3 days ago"
+        },
+        {
+          "title": "Balcony waterproofing",
+          "location": "Bibwewadi",
+          "rating": 4.9,
+          "wage": 600,
+          "date": "1 week ago"
+        }
+      ],
+      "completedJobsCount": 92,
+      "totalEarnings": 58800,
+      "matchScore": 89,
+      "distanceKm": 6.5,
+      "aiReason": "Painter matched • Wall putty & waterproofing • Katraj • High 4.9★ rating"
+    },
+    {
+      "id": "w-6",
+      "name": "Ganesh Shinde",
+      "trade": "Carpenter",
+      "tradeMr": "सुतार (कारपेंटर)",
+      "tradeHi": "बढ़ई (कारपेंटर)",
+      "experienceYears": 8,
+      "dailyWage": 750,
+      "hourlyWage": 130,
+      "rating": 4.9,
+      "reviewsCount": 51,
+      "location": "Baner, Pune",
+      "locationArea": "Baner",
+      "lat": 18.559,
+      "lng": 73.7868,
+      "phone": "+91 98901 44521",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Card + Maharashtra Artisan Guild Verification",
+      "skills": [
+        "Furniture Repair",
+        "Modular Kitchen Fitting",
+        "Door Latching",
+        "Wardrobe Making"
+      ],
+      "skillsMr": [
+        "फर्निचर दुरुस्ती",
+        "मॉड्युलर किचन फिटिंग",
+        "दरवाजे व कुलपे",
+        "कपाट तयार करणे"
+      ],
+      "skillsHi": [
+        "फर्नीचर मरम्मत",
+        "मॉड्यूलर किचन फिटिंग",
+        "दरवाजे और ताले",
+        "अलमारी निर्माण"
+      ],
+      "bio": "Master carpenter for precision wood work, custom plywood cabinetry, and quick lock/hinge repairs.",
+      "bioMr": "सुतार कामात पारंगत. मॉड्युलर किचन, लाकडी कपाटे आणि दरवाज्यांची अचूक दुरुस्ती.",
+      "bioHi": "सटीक लकड़ी के काम, मॉड्यूलर किचन और अलमारी के निर्माण में निपुण।",
+      "recentWork": [
+        {
+          "title": "Modular kitchen repair",
+          "location": "Wakad",
+          "rating": 5,
+          "wage": 800,
+          "date": "Yesterday"
+        },
+        {
+          "title": "Door lock replacement",
+          "location": "Baner",
+          "rating": 4.9,
+          "wage": 600,
+          "date": "4 days ago"
+        }
+      ],
+      "completedJobsCount": 110,
+      "totalEarnings": 82500,
+      "matchScore": 88,
+      "distanceKm": 8.1,
+      "aiReason": "Carpenter matched • Modular kitchen & furniture • Baner • Guild verified"
+    },
+    {
+      "id": "w-7",
+      "name": "Bablu Yadav",
+      "trade": "Mason",
+      "tradeMr": "गवंडी (मिस्त्री)",
+      "tradeHi": "राजमिस्त्री",
+      "experienceYears": 10,
+      "dailyWage": 800,
+      "hourlyWage": 140,
+      "rating": 4.8,
+      "reviewsCount": 34,
+      "location": "Wagholi, Pune",
+      "locationArea": "Wagholi",
+      "lat": 18.5793,
+      "lng": 73.9829,
+      "phone": "+91 97622 77810",
+      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Card + Contractor Endorsement",
+      "skills": [
+        "Brickwork",
+        "Cement Plaster",
+        "Tile Fitting",
+        "Concrete Flooring"
+      ],
+      "skillsMr": [
+        "वीटकाम",
+        "सिमेंट प्लास्टर",
+        "टाईल्स फिटिंग",
+        "फ्लोअरिंग"
+      ],
+      "skillsHi": [
+        "ईंट जोड़ाई",
+        "सीमेंट प्लास्टर",
+        "टाइल लगाना",
+        "कंक्रीट फर्श"
+      ],
+      "bio": "Senior mistri with 10 years experience on construction sites, civil maintenance and tile leveling.",
+      "bioMr": "बांधकाम, प्लास्टर आणि टाईल्स कामातील 10 वर्षांचा दांडगा अनुभव.",
+      "bioHi": "निर्माण कार्य, प्लास्टर और टाइल लगाने में 10 साल का गहरा अनुभव।",
+      "recentWork": [
+        {
+          "title": "Bathroom tiling",
+          "location": "Kharadi",
+          "rating": 4.8,
+          "wage": 850,
+          "date": "3 days ago"
+        },
+        {
+          "title": "Balcony wall plaster",
+          "location": "Wagholi",
+          "rating": 4.9,
+          "wage": 800,
+          "date": "1 week ago"
+        }
+      ],
+      "completedJobsCount": 78,
+      "totalEarnings": 62400,
+      "matchScore": 85,
+      "distanceKm": 14.8,
+      "aiReason": "Mason matched • Tile fitting & plaster • 10 yrs site experience"
+    },
+    {
+      "id": "w-8",
+      "name": "Deepak Bhosale",
+      "trade": "Welder",
+      "tradeMr": "वेल्डर (लोहार)",
+      "tradeHi": "वेल्डर (लोहार)",
+      "experienceYears": 6,
+      "dailyWage": 700,
+      "hourlyWage": 115,
+      "rating": 4.7,
+      "reviewsCount": 15,
+      "location": "Bhosari MIDC, Pune",
+      "locationArea": "Bhosari",
+      "lat": 18.6258,
+      "lng": 73.8447,
+      "phone": "+91 99214 33219",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": false,
+      "availableToday": false,
+      "isIdentityVerified": true,
+      "isSkillVerified": false,
+      "idProofType": "Aadhaar Card",
+      "skills": [
+        "Grill Fabrication",
+        "Arc Welding",
+        "Gate Repair",
+        "Shed Roofing"
+      ],
+      "skillsMr": [
+        "ग्रील तयार करणे",
+        "आर्क वेल्डिंग",
+        "गेट दुरुस्ती",
+        "शेड रूफिंग"
+      ],
+      "skillsHi": [
+        "ग्रिल निर्माण",
+        "आर्क वेल्डिंग",
+        "गेट मरम्मत",
+        "शेड रूफिंग"
+      ],
+      "bio": "Safety certified welder for gates, safety grills, and metal fabrication repair.",
+      "bioMr": "सुरक्षा ग्रील, मुख्य लोखंडी दरवाजे आणि शेड वेल्डिंग कामात निष्णात.",
+      "bioHi": "सुरक्षा ग्रिल, लोहे के मुख्य गेट और शेड वेल्डिंग में कुशल।",
+      "recentWork": [
+        {
+          "title": "Window grill welding",
+          "location": "Bhosari",
+          "rating": 4.7,
+          "wage": 700,
+          "date": "4 days ago"
+        }
+      ],
+      "completedJobsCount": 38,
+      "totalEarnings": 26600,
+      "matchScore": 82,
+      "distanceKm": 11.8,
+      "aiReason": "Welder matched • Grill fabrication & gate repair • Bhosari MIDC"
+    }
+  ],
+  "jobs": [
+    {
+      "id": "job-101",
+      "employerName": "Aditya Deshmukh (Contractor)",
+      "employerPhone": "+91 98221 00011",
+      "workerId": "w-1",
+      "workerName": "Sanjay More",
+      "trade": "Electrician",
+      "title": "Residential flat full wiring",
+      "description": "Need residential wiring for a 2BHK flat in Kothrud near Vanaz. All internal conduit pipes laid.",
+      "location": "Kothrud, Pune",
+      "offeredWage": 650,
+      "status": "in_progress",
+      "createdAt": "2026-10-11T09:30:00Z",
+      "matchScore": 94,
+      "rating": null,
+      "review": null,
+      "messages": [
+        {
+          "id": "msg-1",
+          "sender": "employer",
+          "senderName": "Aditya Deshmukh (Contractor)",
+          "text": "Please bring your 10mm drill and tester.",
+          "translatedText": "कृपया तुमचा 10mm ड्रिल आणि टेस्टर सोबत आणा.",
+          "time": "09:35 AM"
+        },
+        {
+          "id": "msg-2",
+          "sender": "worker",
+          "senderName": "Sanjay More",
+          "text": "मी निघालो आहे. 15 मिनिटांत पोहोचतो.",
+          "translatedText": "I have left. Will reach the site in 15 minutes.",
+          "time": "09:38 AM"
+        }
+      ]
+    },
+    {
+      "id": "job-102",
+      "employerName": "Meera Patel (Homeowner)",
+      "employerPhone": "+91 98234 55566",
+      "workerId": "w-2",
+      "workerName": "Ramesh Pawar",
+      "trade": "Electrician",
+      "title": "Geyser & MCB board repair",
+      "description": "Bathroom water heater trip issue, urgent morning check required.",
+      "location": "Kothrud, Pune",
+      "offeredWage": 600,
+      "status": "completed",
+      "createdAt": "2026-10-10T14:15:00Z",
+      "completedAt": "2026-10-10T17:30:00Z",
+      "matchScore": 91,
+      "rating": 5,
+      "review": "Arrived within 30 minutes! Diagnosed short circuit instantly and fixed cleanly. Highly recommended.",
+      "messages": []
+    },
+    {
+      "id": "job-103",
+      "employerName": "Rajiv Joshi (Shop Owner)",
+      "employerPhone": "+91 98909 88877",
+      "workerId": "w-4",
+      "workerName": "Rahul Kumar",
+      "trade": "Plumber",
+      "title": "Commercial shop washroom piping",
+      "description": "Drainage pipe connection and flush valve install in commercial complex.",
+      "location": "Hadapsar, Pune",
+      "offeredWage": 550,
+      "status": "accepted",
+      "createdAt": "2026-10-11T11:00:00Z",
+      "matchScore": 89,
+      "rating": null,
+      "review": null,
+      "messages": []
+    }
+  ],
+  "analytics": {
+    "totalGigsCompleted": 248,
+    "totalEarningsDisbursed": 142800,
+    "avgTimeToHireMinutes": 8.4,
+    "chowkWaitTimeHours": 4.5,
+    "repeatHiringRate": 78
+  }
+}
