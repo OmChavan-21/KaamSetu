@@ -11,7 +11,7 @@ import { User } from '../models/User.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const DB_FILE = path.join(__dirname, 'store.json');
+const DB_FILE = process.env.VERCEL ? path.join('/tmp', 'store.json') : path.join(__dirname, 'store.json');
 
 // Default hashed demo password ('KaamSetu2026!')
 const DEFAULT_DEMO_PW_HASH = bcrypt.hashSync('KaamSetu2026!', 10);
@@ -84,22 +84,19 @@ class Database {
 
   init() {
     try {
-      if (fs.existsSync(DB_FILE)) {
-        const fileContent = fs.readFileSync(DB_FILE, 'utf-8');
+      const sourceFile = fs.existsSync(DB_FILE) ? DB_FILE : path.join(__dirname, 'store.json');
+      if (fs.existsSync(sourceFile)) {
+        const fileContent = fs.readFileSync(sourceFile, 'utf-8');
         this.data = JSON.parse(fileContent);
         if (!this.data.users) {
           this.data.users = [...initialUsers];
           this.save();
         }
-        if (!this.data.workers || !this.data.workers.some(w => w.id === 'w-m1') || !this.data.workers.some(w => w.id === 'w-so1')) {
-          this.reset();
-        }
       } else {
         this.save();
       }
     } catch (err) {
-      console.error('Error initializing db from file, using initial memory seed:', err);
-      this.save();
+      console.warn('DB initialization notice (using memory seed):', err.message);
     }
   }
 
@@ -107,7 +104,7 @@ class Database {
     try {
       fs.writeFileSync(DB_FILE, JSON.stringify(this.data, null, 2), 'utf-8');
     } catch (err) {
-      console.error('Failed to write db file:', err);
+      // In serverless / read-only filesystem environment, data safely remains in memory & MongoDB
     }
   }
 

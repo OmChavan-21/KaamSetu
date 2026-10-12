@@ -831,7 +831,8 @@ app.get('*', (req, res, next) => {
 
 export default app;
 
-if (!process.env.VERCEL) {
+const isDirectExecution = process.argv[1] && (process.argv[1].endsWith('server.js') || process.argv[1].endsWith('server'));
+if (isDirectExecution && !process.env.VERCEL) {
   app.listen(PORT, async () => {
     console.log(`🚀 KaamSetu AI Server running on http://localhost:${PORT}`);
     // Initialize MongoDB connection asynchronously with zero blocking
