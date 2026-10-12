@@ -829,12 +829,16 @@ app.get('*', (req, res, next) => {
   res.sendFile(path.join(clientDist, 'index.html'));
 });
 
-app.listen(PORT, async () => {
-  console.log(`🚀 KaamSetu AI Server running on http://localhost:${PORT}`);
-  // Initialize MongoDB connection asynchronously with zero blocking
-  initMongoConnection().then(() => {
-    if (isMongoConnected()) {
-      db.hydrateFromMongo();
-    }
+export default app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, async () => {
+    console.log(`🚀 KaamSetu AI Server running on http://localhost:${PORT}`);
+    // Initialize MongoDB connection asynchronously with zero blocking
+    initMongoConnection().then(() => {
+      if (isMongoConnected()) {
+        db.hydrateFromMongo();
+      }
+    });
   });
-});
+}

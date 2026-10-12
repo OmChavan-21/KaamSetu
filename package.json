@@ -2,7 +2,9 @@
   "name": "kaamsetu-ai",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
+    "build": "cd client && npm install && npm run build",
     "dev:server": "cd server && npm run dev",
     "dev:client": "cd client && npm run dev",
     "install:all": "cd client && npm install && cd ../server && npm install",
