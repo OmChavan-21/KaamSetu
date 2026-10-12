@@ -2591,11 +2591,15 @@
       "name": "Aditya Deshmukh (Contractor)",
       "email": "aditya@kaamsetu.in",
       "phone": "+91 98221 00011",
-      "passwordHash": "$2b$10$oy6Ppvc1GvArTLdQ0RlZzu5hx00rPqDCkKy1N3Alq2X1ppGOiAHjO",
+      "passwordHash": "$2b$10$IwpHKJIB3UC.8JuYyxVyX.Fw0VOmRQCeA1iRj/wx1j1WfpwCRTcoq",
       "role": "employer",
       "district": "Pune",
       "city": "Pune",
-      "isEmailVerified": true
+      "isEmailVerified": true,
+      "resetPasswordToken": null,
+      "resetPasswordCode": null,
+      "resetPasswordExpires": null,
+      "lastLoginAt": "2026-10-12T02:50:17.146Z"
     },
     {
       "id": "usr-wrk-101",
