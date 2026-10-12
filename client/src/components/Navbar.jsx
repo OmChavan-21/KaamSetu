@@ -39,6 +39,7 @@ export function Navbar({ onNavigateSection }) {
     activeWorkerId,
     viewMode,
     setViewMode,
+    logout,
     t
   } = useApp();
 
@@ -288,6 +289,17 @@ export function Navbar({ onNavigateSection }) {
                     >
                       <RotateCcw className="w-4 h-4 text-slate-400" />
                       <span>Reset Demo Baseline</span>
+                    </button>
+
+                    <button
+                      onClick={() => {
+                        setShowUserDropdown(false);
+                        logout();
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-red-400 hover:text-red-300 hover:bg-red-950/40 flex items-center space-x-2 transition cursor-pointer"
+                    >
+                      <LogOut className="w-4 h-4 text-red-400" />
+                      <span>Sign Out (लॉग आउट)</span>
                     </button>
                   </div>
                 </div>

@@ -257,11 +257,165 @@ export function AppProvider({ children }) {
     }
   };
 
+  const [authToken, setAuthToken] = useState(() => localStorage.getItem('kaamsetu_auth_token') || null);
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  // Authentication Switcher Methods
+  // Restore authenticated session on initial mount
+  useEffect(() => {
+    const savedToken = localStorage.getItem('kaamsetu_auth_token');
+    if (savedToken) {
+      fetch('/api/auth/me', {
+        headers: { 'Authorization': `Bearer ${savedToken}` }
+      })
+        .then(res => {
+          if (!res.ok) throw new Error('Session expired');
+          return res.json();
+        })
+        .then(data => {
+          if (data.success && data.user) {
+            setCurrentUser(data.user);
+            setAuthRole(data.user.role);
+            setAuthToken(savedToken);
+            if (data.user.role === 'admin') {
+              setIsAdminAuthenticated(true);
+              setAdminAuthToken(savedToken);
+            }
+            if (data.user.role === 'worker' && data.user.workerId) {
+              setActiveWorkerId(data.user.workerId);
+            }
+          }
+        })
+        .catch(() => {
+          localStorage.removeItem('kaamsetu_auth_token');
+          setAuthToken(null);
+        });
+    }
+  }, []);
+
+  // Real Email & Password Login
+  const login = async (email, password) => {
+    try {
+      const res = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        addToast(data.error || 'Login failed', 'alert');
+        return { success: false, error: data.error };
+      }
+
+      localStorage.setItem('kaamsetu_auth_token', data.token);
+      setAuthToken(data.token);
+      setCurrentUser(data.user);
+      setAuthRole(data.user.role);
+
+      if (data.user.role === 'admin') {
+        setIsAdminAuthenticated(true);
+        setAdminAuthToken(data.token);
+      }
+      if (data.user.role === 'worker' && data.user.workerId) {
+        setActiveWorkerId(data.user.workerId);
+      }
+
+      if (soundEnabled) sound.playSuccess();
+      addToast(`Welcome back, ${data.user.name}!`, 'success');
+      return { success: true, user: data.user, token: data.token };
+    } catch (err) {
+      addToast('Network error during login', 'alert');
+      return { success: false, error: err.message };
+    }
+  };
+
+  // Real User Registration
+  const register = async (userData) => {
+    try {
+      const res = await fetch('/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        addToast(data.error || 'Registration failed', 'alert');
+        return { success: false, error: data.error };
+      }
+
+      localStorage.setItem('kaamsetu_auth_token', data.token);
+      setAuthToken(data.token);
+      setCurrentUser(data.user);
+      setAuthRole(data.user.role);
+
+      if (data.user.role === 'worker' && data.user.workerId) {
+        setActiveWorkerId(data.user.workerId);
+        fetchData(); // reload worker list
+      }
+
+      if (soundEnabled) sound.playSuccess();
+      confetti({ particleCount: 75, spread: 65, origin: { y: 0.6 } });
+      addToast(`Account created successfully! Welcome to KaamSetu, ${data.user.name}!`, 'success');
+      return { success: true, user: data.user, token: data.token };
+    } catch (err) {
+      addToast('Network error during registration', 'alert');
+      return { success: false, error: err.message };
+    }
+  };
+
+  // Request Password Reset Link & 6-digit Code
+  const requestPasswordReset = async (email) => {
+    try {
+      const res = await fetch('/api/auth/forgot-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        addToast(data.error || 'Failed to dispatch password reset', 'alert');
+        return { success: false, error: data.error };
+      }
+      if (soundEnabled) sound.playAlert();
+      addToast(data.message, 'success');
+      return { success: true, data };
+    } catch (err) {
+      addToast('Network error requesting password reset', 'alert');
+      return { success: false, error: err.message };
+    }
+  };
+
+  // Reset Password with Token or 6-digit Code
+  const resetPassword = async (tokenOrCode, newPassword) => {
+    try {
+      const res = await fetch('/api/auth/reset-password', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tokenOrCode, newPassword })
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        addToast(data.error || 'Password reset failed', 'alert');
+        return { success: false, error: data.error };
+      }
+
+      localStorage.setItem('kaamsetu_auth_token', data.token);
+      setAuthToken(data.token);
+      setCurrentUser(data.user);
+      setAuthRole(data.user.role);
+
+      if (soundEnabled) sound.playSuccess();
+      addToast(data.message, 'success');
+      return { success: true, user: data.user, token: data.token };
+    } catch (err) {
+      addToast('Network error resetting password', 'alert');
+      return { success: false, error: err.message };
+    }
+  };
+
+  // Authentication Switcher Methods (Presets & Demo Convenience)
   const loginAsEmployer = (userData) => {
     setAuthRole('employer');
     setCurrentUser({
@@ -333,7 +487,12 @@ export function AppProvider({ children }) {
   };
 
   const logout = () => {
+    localStorage.removeItem('kaamsetu_auth_token');
+    setAuthToken(null);
+    setIsAdminAuthenticated(false);
+    setAdminAuthToken(null);
     setIsAuthModalOpen(true);
+    addToast('Signed out of KaamSetu session', 'info');
   };
 
   // Dispatch Job Request
@@ -534,6 +693,11 @@ export function AppProvider({ children }) {
         setRole: setAuthRole,
         currentUser,
         isAdminAuthenticated,
+        authToken,
+        login,
+        register,
+        requestPasswordReset,
+        resetPassword,
         isAuthModalOpen,
         setIsAuthModalOpen,
         loginAsEmployer,

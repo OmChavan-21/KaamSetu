@@ -1,21 +1,76 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import bcrypt from 'bcryptjs';
 import { initialWorkers, initialJobs } from './seedData.js';
 import { isMongoConnected } from './mongoConnection.js';
 import { Worker } from '../models/Worker.js';
 import { Job } from '../models/Job.js';
 import { Analytics } from '../models/Analytics.js';
+import { User } from '../models/User.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const DB_FILE = path.join(__dirname, 'store.json');
+
+// Default hashed demo password ('KaamSetu2026!')
+const DEFAULT_DEMO_PW_HASH = bcrypt.hashSync('KaamSetu2026!', 10);
+
+export const initialUsers = [
+  {
+    id: 'usr-emp-101',
+    name: 'Aditya Deshmukh (Contractor)',
+    email: 'aditya@kaamsetu.in',
+    phone: '+91 98221 00011',
+    passwordHash: DEFAULT_DEMO_PW_HASH,
+    role: 'employer',
+    district: 'Pune',
+    city: 'Pune',
+    isEmailVerified: true
+  },
+  {
+    id: 'usr-wrk-101',
+    name: 'Bandu Patil',
+    email: 'bandu@kaamsetu.in',
+    phone: '+91 98229 55432',
+    passwordHash: DEFAULT_DEMO_PW_HASH,
+    role: 'worker',
+    workerId: 'w-k1',
+    district: 'Kolhapur',
+    city: 'Kolhapur',
+    isEmailVerified: true
+  },
+  {
+    id: 'usr-wrk-102',
+    name: 'Ramesh Pawar',
+    email: 'ramesh@kaamsetu.in',
+    phone: '+91 97654 23891',
+    passwordHash: DEFAULT_DEMO_PW_HASH,
+    role: 'worker',
+    workerId: 'w-2',
+    district: 'Pune',
+    city: 'Pune',
+    isEmailVerified: true
+  },
+  {
+    id: 'usr-adm-101',
+    name: 'Chief Verification Officer',
+    email: 'admin@kaamsetu.in',
+    phone: '+91 98000 00000',
+    passwordHash: DEFAULT_DEMO_PW_HASH,
+    role: 'admin',
+    district: 'Kolhapur',
+    city: 'Kolhapur',
+    isEmailVerified: true
+  }
+];
 
 class Database {
   constructor() {
     this.data = {
       workers: [...initialWorkers],
       jobs: [...initialJobs],
+      users: [...initialUsers],
       analytics: {
         totalGigsCompleted: 248,
         totalEarningsDisbursed: 142800,
@@ -32,6 +87,10 @@ class Database {
       if (fs.existsSync(DB_FILE)) {
         const fileContent = fs.readFileSync(DB_FILE, 'utf-8');
         this.data = JSON.parse(fileContent);
+        if (!this.data.users) {
+          this.data.users = [...initialUsers];
+          this.save();
+        }
         if (!this.data.workers || !this.data.workers.some(w => w.id === 'w-m1') || !this.data.workers.some(w => w.id === 'w-so1')) {
           this.reset();
         }
@@ -64,6 +123,20 @@ class Database {
       if (mongoJobs && mongoJobs.length > 0) {
         this.data.jobs = mongoJobs;
       }
+      let mongoUsers = await User.find().lean();
+      if (!mongoUsers || mongoUsers.length === 0) {
+        await User.insertMany(initialUsers);
+        mongoUsers = await User.find().lean();
+      } else {
+        // Ensure standard demo users exist
+        for (const initU of initialUsers) {
+          if (!mongoUsers.some(u => u.email === initU.email)) {
+            await User.create(initU);
+            mongoUsers.push(initU);
+          }
+        }
+      }
+      this.data.users = mongoUsers;
       const mongoAnalytics = await Analytics.findOne({ key: 'platform_metrics' }).lean();
       if (mongoAnalytics) {
         this.data.analytics = {
@@ -75,7 +148,7 @@ class Database {
         };
       }
       this.save();
-      console.log(`🔄 Hydrated ${this.data.workers.length} workers & ${this.data.jobs.length} jobs from MongoDB into local memory.`);
+      console.log(`🔄 Hydrated ${this.data.workers.length} workers, ${this.data.jobs.length} jobs & ${this.data.users.length} users from MongoDB into local memory.`);
     } catch (err) {
       console.error('Failed to hydrate from MongoDB:', err.message);
     }
@@ -85,6 +158,7 @@ class Database {
     this.data = {
       workers: JSON.parse(JSON.stringify(initialWorkers)),
       jobs: JSON.parse(JSON.stringify(initialJobs)),
+      users: JSON.parse(JSON.stringify(initialUsers)),
       analytics: {
         totalGigsCompleted: 248,
         totalEarningsDisbursed: 142800,
@@ -103,6 +177,8 @@ class Database {
           await Worker.insertMany(initialWorkers);
           await Job.deleteMany({});
           await Job.insertMany(initialJobs);
+          await User.deleteMany({});
+          await User.insertMany(initialUsers);
           await Analytics.findOneAndUpdate(
             { key: 'platform_metrics' },
             { $set: this.data.analytics },
@@ -118,6 +194,59 @@ class Database {
     return this.data;
   }
 
+  // =================== USERS & AUTH ===================
+  getUsers() {
+    return this.data.users || [];
+  }
+
+  getUserByEmail(email) {
+    if (!email) return null;
+    const cleanEmail = email.trim().toLowerCase();
+    return (this.data.users || []).find(u => u.email.toLowerCase() === cleanEmail);
+  }
+
+  getUserById(id) {
+    return (this.data.users || []).find(u => u.id === id);
+  }
+
+  getUserByResetToken(tokenOrCode) {
+    if (!tokenOrCode) return null;
+    const clean = String(tokenOrCode).trim();
+    return (this.data.users || []).find(u => 
+      (u.resetPasswordToken === clean || (u.resetPasswordCode && String(u.resetPasswordCode).trim() === clean)) && 
+      u.resetPasswordExpires && 
+      new Date(u.resetPasswordExpires) > new Date()
+    );
+  }
+
+  addUser(user) {
+    if (!this.data.users) this.data.users = [];
+    this.data.users.unshift(user);
+    this.save();
+
+    if (isMongoConnected()) {
+      User.create(user).catch(err => console.error('MongoDB user insert error:', err.message));
+    }
+    return user;
+  }
+
+  updateUser(id, updates) {
+    if (!this.data.users) this.data.users = [];
+    const idx = this.data.users.findIndex(u => u.id === id);
+    if (idx !== -1) {
+      this.data.users[idx] = { ...this.data.users[idx], ...updates };
+      this.save();
+
+      if (isMongoConnected()) {
+        User.findOneAndUpdate({ id }, { $set: updates }, { returnDocument: 'after' })
+          .catch(err => console.error('MongoDB user update error:', err.message));
+      }
+      return this.data.users[idx];
+    }
+    return null;
+  }
+
+  // =================== WORKERS ===================
   getWorkers() {
     return this.data.workers;
   }
@@ -130,7 +259,6 @@ class Database {
     this.data.workers.unshift(worker);
     this.save();
 
-    // Sync to MongoDB
     if (isMongoConnected()) {
       Worker.create(worker).catch(err => console.error('MongoDB worker insert error:', err.message));
     }
@@ -144,9 +272,8 @@ class Database {
       this.data.workers[idx] = { ...this.data.workers[idx], ...updates };
       this.save();
 
-      // Sync to MongoDB
       if (isMongoConnected()) {
-        Worker.findOneAndUpdate({ id }, { $set: updates }, { new: true })
+        Worker.findOneAndUpdate({ id }, { $set: updates }, { returnDocument: 'after' })
           .catch(err => console.error('MongoDB worker update error:', err.message));
       }
 
@@ -155,6 +282,7 @@ class Database {
     return null;
   }
 
+  // =================== JOBS ===================
   getJobs() {
     return this.data.jobs;
   }
@@ -168,7 +296,6 @@ class Database {
     this.data.jobs.unshift(job);
     this.save();
 
-    // Sync to MongoDB
     if (isMongoConnected()) {
       Job.create(job).catch(err => console.error('MongoDB job insert error:', err.message));
     }
@@ -208,7 +335,6 @@ class Database {
             date: 'Just now'
           });
 
-          // Sync worker update to MongoDB
           if (isMongoConnected()) {
             Worker.findOneAndUpdate(
               { id: worker.id },
@@ -225,7 +351,6 @@ class Database {
           }
         }
 
-        // Sync analytics to MongoDB
         if (isMongoConnected()) {
           Analytics.findOneAndUpdate(
             { key: 'platform_metrics' },
@@ -237,9 +362,8 @@ class Database {
 
       this.save();
 
-      // Sync job update to MongoDB
       if (isMongoConnected()) {
-        Job.findOneAndUpdate({ id }, { $set: updates }, { new: true })
+        Job.findOneAndUpdate({ id }, { $set: updates }, { returnDocument: 'after' })
           .catch(err => console.error('MongoDB job update error:', err.message));
       }
 
@@ -260,7 +384,6 @@ class Database {
       job.messages.push(msgObj);
       this.save();
 
-      // Sync message to MongoDB
       if (isMongoConnected()) {
         Job.findOneAndUpdate(
           { id: jobId },

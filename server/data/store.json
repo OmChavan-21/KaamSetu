@@ -1,125 +1,7 @@
 {
   "workers": [
     {
-      "id": "w-1791725691180",
-      "name": "Tanaji Patil",
-      "trade": "Electrician",
-      "tradeMr": "इलेक्ट्रिशियन",
-      "tradeHi": "इलेक्ट्रीशियन",
-      "experienceYears": 4,
-      "dailyWage": 600,
-      "hourlyWage": 86,
-      "rating": 5,
-      "reviewsCount": 1,
-      "district": "Kolhapur",
-      "city": "Kolhapur",
-      "division": "western",
-      "location": "Shahupuri, Kolhapur",
-      "locationArea": "Shahupuri",
-      "lat": 16.70440992732087,
-      "lng": 74.24232434684811,
-      "phone": "+91 98229 11223",
-      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-      "isAvailable": true,
-      "availableToday": true,
-      "isIdentityVerified": true,
-      "isSkillVerified": true,
-      "idProofType": "Aadhaar Verified",
-      "skills": [
-        "Wiring",
-        "Switchboard Repair"
-      ],
-      "bio": "4 years of dedicated experience in Electrician. Reliable and verified.",
-      "recentWork": [],
-      "completedJobsCount": 0,
-      "totalEarnings": 0,
-      "matchScore": 88,
-      "distanceKm": 2.5,
-      "aiReason": "Electrician registered in Kolhapur • Available now • Fits ₹600 budget"
-    },
-    {
-      "id": "w-test-1791722030028",
-      "name": "Ganesh Shinde",
-      "trade": "Mason",
-      "dailyWage": 800,
-      "district": "Kolhapur",
-      "city": "Kolhapur",
-      "location": "Tarabai Park, Kolhapur",
-      "lat": 16.7088,
-      "lng": 74.2415,
-      "completedJobsCount": 1,
-      "totalEarnings": 800,
-      "reviewsCount": null,
-      "rating": null,
-      "recentWork": [
-        {
-          "title": "Wall plastering",
-          "rating": 5,
-          "wage": 800,
-          "date": "Just now"
-        }
-      ]
-    },
-    {
-      "id": "w-test-1791721965347",
-      "name": "Ganesh Shinde",
-      "trade": "Mason",
-      "dailyWage": 800,
-      "district": "Kolhapur",
-      "city": "Kolhapur",
-      "location": "Tarabai Park, Kolhapur",
-      "lat": 16.7088,
-      "lng": 74.2415,
-      "completedJobsCount": 1,
-      "totalEarnings": 800,
-      "reviewsCount": null,
-      "rating": null,
-      "recentWork": [
-        {
-          "title": "Wall plastering",
-          "rating": 5,
-          "wage": 800,
-          "date": "Just now"
-        }
-      ]
-    },
-    {
-      "id": "w-1791720845002",
-      "name": "Malicious Attacker",
-      "trade": "Plumber",
-      "tradeMr": "प्लंबर",
-      "tradeHi": "प्लंबर",
-      "experienceYears": 1,
-      "dailyWage": 500,
-      "hourlyWage": 71,
-      "rating": 5,
-      "reviewsCount": 1,
-      "district": "Kolhapur",
-      "city": "Kolhapur",
-      "division": "western",
-      "location": "Pune",
-      "locationArea": "Pune",
-      "lat": 16.711157766203797,
-      "lng": 74.20374141917252,
-      "phone": "+91 98000 00000",
-      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
-      "isAvailable": true,
-      "availableToday": true,
-      "isIdentityVerified": true,
-      "isSkillVerified": true,
-      "idProofType": "Aadhaar Verified",
-      "skills": [
-        "Plumber"
-      ],
-      "bio": "1 years of dedicated experience in Plumber. Reliable and verified.",
-      "recentWork": [],
-      "completedJobsCount": 0,
-      "totalEarnings": 0,
-      "matchScore": 88,
-      "distanceKm": 2.5,
-      "aiReason": "Plumber registered in Kolhapur • Available now • Fits ₹500 budget"
-    },
-    {
+      "_id": "6acb90569624e2d306c20e6a",
       "id": "w-1",
       "name": "Sanjay More",
       "trade": "Electrician",
@@ -130,7 +12,9 @@
       "hourlyWage": 120,
       "rating": 4.9,
       "reviewsCount": 36,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Swargate, Pune",
       "locationArea": "Swargate",
       "lat": 18.5018,
@@ -190,9 +74,13 @@
       "totalEarnings": 54600,
       "matchScore": 94,
       "distanceKm": 2.1,
-      "aiReason": "Electrician matched • Residential wiring specialist • Swargate • 6 yrs exp"
+      "aiReason": "Electrician matched • Residential wiring specialist • Swargate • 6 yrs exp",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.758Z",
+      "updatedAt": "2026-10-11T13:34:14.758Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e6b",
       "id": "w-2",
       "name": "Ramesh Pawar",
       "trade": "Electrician",
@@ -203,7 +91,9 @@
       "hourlyWage": 100,
       "rating": 4.8,
       "reviewsCount": 28,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Kothrud, Pune",
       "locationArea": "Kothrud",
       "lat": 18.5074,
@@ -263,9 +153,13 @@
       "totalEarnings": 39000,
       "matchScore": 91,
       "distanceKm": 3.4,
-      "aiReason": "Electrician matched • Wiring & Repair • Kothrud • Fits ₹600 budget"
+      "aiReason": "Electrician matched • Wiring & Repair • Kothrud • Fits ₹600 budget",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.760Z",
+      "updatedAt": "2026-10-11T13:34:14.760Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e6c",
       "id": "w-3",
       "name": "Vikram Singh",
       "trade": "Electrician",
@@ -276,7 +170,9 @@
       "hourlyWage": 95,
       "rating": 4.7,
       "reviewsCount": 19,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Pimpri-Chinchwad, Pune",
       "locationArea": "Pimpri",
       "lat": 18.6298,
@@ -326,9 +222,13 @@
       "totalEarnings": 24360,
       "matchScore": 87,
       "distanceKm": 9.8,
-      "aiReason": "Electrician matched • Industrial & MCB • Pimpri • ₹580/day"
+      "aiReason": "Electrician matched • Industrial & MCB • Pimpri • ₹580/day",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.760Z",
+      "updatedAt": "2026-10-11T13:34:14.760Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e6d",
       "id": "w-4",
       "name": "Rahul Kumar",
       "trade": "Plumber",
@@ -339,7 +239,9 @@
       "hourlyWage": 90,
       "rating": 4.6,
       "reviewsCount": 22,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Hadapsar, Pune",
       "locationArea": "Hadapsar",
       "lat": 18.5089,
@@ -392,9 +294,13 @@
       "totalEarnings": 28050,
       "matchScore": 86,
       "distanceKm": 7.2,
-      "aiReason": "Plumber matched • Leakage & Sanitary specialist • Hadapsar • ₹550/day"
+      "aiReason": "Plumber matched • Leakage & Sanitary specialist • Hadapsar • ₹550/day",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.760Z",
+      "updatedAt": "2026-10-11T13:34:14.760Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e6e",
       "id": "w-5",
       "name": "Sunita Kamble",
       "trade": "Painter",
@@ -405,7 +311,9 @@
       "hourlyWage": 100,
       "rating": 4.9,
       "reviewsCount": 42,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Katraj, Pune",
       "locationArea": "Katraj",
       "lat": 18.4575,
@@ -458,9 +366,13 @@
       "totalEarnings": 58800,
       "matchScore": 89,
       "distanceKm": 6.5,
-      "aiReason": "Painter matched • Wall putty & waterproofing • Katraj • High 4.9★ rating"
+      "aiReason": "Painter matched • Wall putty & waterproofing • Katraj • High 4.9★ rating",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.760Z",
+      "updatedAt": "2026-10-11T13:34:14.760Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e6f",
       "id": "w-6",
       "name": "Ganesh Shinde",
       "trade": "Carpenter",
@@ -471,7 +383,9 @@
       "hourlyWage": 130,
       "rating": 4.9,
       "reviewsCount": 51,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Baner, Pune",
       "locationArea": "Baner",
       "lat": 18.559,
@@ -524,9 +438,13 @@
       "totalEarnings": 82500,
       "matchScore": 88,
       "distanceKm": 8.1,
-      "aiReason": "Carpenter matched • Modular kitchen & furniture • Baner • Guild verified"
+      "aiReason": "Carpenter matched • Modular kitchen & furniture • Baner • Guild verified",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e70",
       "id": "w-7",
       "name": "Bablu Yadav",
       "trade": "Mason",
@@ -537,7 +455,9 @@
       "hourlyWage": 140,
       "rating": 4.8,
       "reviewsCount": 34,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Wagholi, Pune",
       "locationArea": "Wagholi",
       "lat": 18.5793,
@@ -590,9 +510,13 @@
       "totalEarnings": 62400,
       "matchScore": 85,
       "distanceKm": 14.8,
-      "aiReason": "Mason matched • Tile fitting & plaster • Wagholi • 10 yrs site exp"
+      "aiReason": "Mason matched • Tile fitting & plaster • Wagholi • 10 yrs site exp",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e71",
       "id": "w-8",
       "name": "Deepak Bhosale",
       "trade": "Welder",
@@ -603,7 +527,9 @@
       "hourlyWage": 115,
       "rating": 4.7,
       "reviewsCount": 15,
+      "district": "Pune",
       "city": "Pune",
+      "division": "western",
       "location": "Bhosari MIDC, Pune",
       "locationArea": "Bhosari",
       "lat": 18.6258,
@@ -649,9 +575,13 @@
       "totalEarnings": 26600,
       "matchScore": 82,
       "distanceKm": 11.8,
-      "aiReason": "Welder matched • Grill fabrication & gate repair • Bhosari MIDC"
+      "aiReason": "Welder matched • Grill fabrication & gate repair • Bhosari MIDC",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e72",
       "id": "w-k1",
       "name": "Bandu Patil",
       "trade": "Electrician",
@@ -662,14 +592,16 @@
       "hourlyWage": 90,
       "rating": 4.9,
       "reviewsCount": 38,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Bindu Chowk, Kolhapur",
       "locationArea": "Bindu Chowk",
       "lat": 16.6946,
       "lng": 74.2238,
       "phone": "+91 98224 88712",
       "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
-      "isAvailable": false,
+      "isAvailable": true,
       "availableToday": true,
       "isIdentityVerified": true,
       "isSkillVerified": true,
@@ -715,9 +647,13 @@
       "totalEarnings": 43450,
       "matchScore": 96,
       "distanceKm": 0.8,
-      "aiReason": "Electrician matched • Motor starter & wiring • Bindu Chowk Kolhapur • ₹550/day"
+      "aiReason": "Electrician matched • Motor starter & wiring • Bindu Chowk Kolhapur • ₹550/day",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e73",
       "id": "w-k2",
       "name": "Tanaji Powar",
       "trade": "Plumber",
@@ -728,7 +664,9 @@
       "hourlyWage": 85,
       "rating": 4.8,
       "reviewsCount": 31,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Rajarampuri, Kolhapur",
       "locationArea": "Rajarampuri",
       "lat": 16.6923,
@@ -781,9 +719,13 @@
       "totalEarnings": 35360,
       "matchScore": 92,
       "distanceKm": 1.6,
-      "aiReason": "Plumber matched • Borewell & sanitary • Rajarampuri Kolhapur • ₹520/day"
+      "aiReason": "Plumber matched • Borewell & sanitary • Rajarampuri Kolhapur • ₹520/day",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e74",
       "id": "w-k3",
       "name": "Ananda Kamble",
       "trade": "Painter",
@@ -794,7 +736,9 @@
       "hourlyWage": 80,
       "rating": 4.9,
       "reviewsCount": 29,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Shahupuri, Kolhapur",
       "locationArea": "Shahupuri",
       "lat": 16.7027,
@@ -847,9 +791,13 @@
       "totalEarnings": 27000,
       "matchScore": 91,
       "distanceKm": 1.3,
-      "aiReason": "Painter matched • Waterproofing & wall putty • Shahupuri Kolhapur"
+      "aiReason": "Painter matched • Waterproofing & wall putty • Shahupuri Kolhapur",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e75",
       "id": "w-k4",
       "name": "Prashant Sutar",
       "trade": "Carpenter",
@@ -860,7 +808,9 @@
       "hourlyWage": 110,
       "rating": 4.9,
       "reviewsCount": 45,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Tarabai Park, Kolhapur",
       "locationArea": "Tarabai Park",
       "lat": 16.7099,
@@ -913,9 +863,13 @@
       "totalEarnings": 59840,
       "matchScore": 93,
       "distanceKm": 2.1,
-      "aiReason": "Carpenter matched • Modular kitchen & doors • Tarabai Park Kolhapur"
+      "aiReason": "Carpenter matched • Modular kitchen & doors • Tarabai Park Kolhapur",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e76",
       "id": "w-k5",
       "name": "Mahadev Jadhav",
       "trade": "Mason",
@@ -926,7 +880,9 @@
       "hourlyWage": 125,
       "rating": 4.8,
       "reviewsCount": 39,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Rankala Chowk, Kolhapur",
       "locationArea": "Rankala Chowk",
       "lat": 16.6874,
@@ -979,9 +935,13 @@
       "totalEarnings": 78000,
       "matchScore": 89,
       "distanceKm": 1.9,
-      "aiReason": "Mason matched • Civil plaster & tile leveling • Rankala Chowk Kolhapur"
+      "aiReason": "Mason matched • Civil plaster & tile leveling • Rankala Chowk Kolhapur",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e77",
       "id": "w-k6",
       "name": "Sambhaji Shinde",
       "trade": "Welder",
@@ -992,7 +952,9 @@
       "hourlyWage": 110,
       "rating": 4.7,
       "reviewsCount": 22,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Shiroli MIDC, Kolhapur",
       "locationArea": "Shiroli MIDC",
       "lat": 16.7578,
@@ -1038,9 +1000,13 @@
       "totalEarnings": 29900,
       "matchScore": 88,
       "distanceKm": 6.8,
-      "aiReason": "Welder matched • Industrial gates & sheds • Shiroli MIDC Kolhapur"
+      "aiReason": "Welder matched • Industrial gates & sheds • Shiroli MIDC Kolhapur",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e78",
       "id": "w-k7",
       "name": "Sachin Ghatge",
       "trade": "Electrician",
@@ -1051,7 +1017,9 @@
       "hourlyWage": 85,
       "rating": 4.8,
       "reviewsCount": 19,
+      "district": "Kolhapur",
       "city": "Kolhapur",
+      "division": "western",
       "location": "Gandhinagar, Kolhapur",
       "locationArea": "Gandhinagar",
       "lat": 16.7082,
@@ -1097,13 +1065,15 @@
       "totalEarnings": 20280,
       "matchScore": 92,
       "distanceKm": 3.8,
-      "aiReason": "Electrician matched • Shop & residential wiring • Gandhinagar Kolhapur"
+      "aiReason": "Electrician matched • Shop & residential wiring • Gandhinagar Kolhapur",
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.761Z",
+      "updatedAt": "2026-10-11T13:34:14.761Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e79",
       "id": "w-m1",
       "name": "Ganesh Kamble",
-      "phone": "+91 98201 11223",
-      "avatar": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=250",
       "trade": "Electrician",
       "tradeMr": "इलेक्ट्रिशियन",
       "tradeHi": "इलेक्ट्रीशियन",
@@ -1112,21 +1082,18 @@
       "hourlyWage": 120,
       "rating": 4.88,
       "reviewsCount": 68,
-      "city": "Mumbai",
       "district": "Mumbai",
+      "city": "Mumbai",
       "division": "Konkan & Mumbai MMR",
-      "locality": "Dadar Chowk",
-      "coordinates": {
-        "lat": 19.0178,
-        "lng": 72.8478
-      },
+      "location": "Dadar Chowk, Mumbai",
+      "lat": 19.0178,
+      "lng": 72.8478,
+      "phone": "+91 98201 11223",
+      "avatar": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 95,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar + PWD Wireman License",
       "skills": [
         "MCB Distribution",
@@ -1149,6 +1116,7 @@
       "bio": "Licensed highrise wireman serving Dadar, Matunga and South Mumbai. Fast emergency repairs.",
       "bioMr": "दादर व दक्षिण मुंबईत १२ वर्षांचा अनुभव असलेले परवानाधारक वायरमन. तात्काळ सेवा उपलब्ध.",
       "bioHi": "दादर और दक्षिण मुंबई में 12 साल का अनुभव रखने वाले लाइसेंसी इलेक्ट्रीशियन।",
+      "locality": "Dadar Chowk",
       "recentWork": [
         {
           "title": "3BHK full panel rewire",
@@ -1162,13 +1130,25 @@
       "totalEarnings": 54600,
       "matchScore": 96,
       "distanceKm": 1.2,
-      "aiReason": "Diamond Verified • Central Mumbai fast response • Dadar hub"
+      "aiReason": "Diamond Verified • Central Mumbai fast response • Dadar hub",
+      "coordinates": {
+        "lat": 19.0178,
+        "lng": 72.8478
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 95,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7a",
       "id": "w-m2",
       "name": "Sameer Sheikh",
-      "phone": "+91 98205 44332",
-      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=250",
       "trade": "Plumber",
       "tradeMr": "प्लंबर (नळ कारागीर)",
       "tradeHi": "प्लंबर (नलसाज)",
@@ -1177,21 +1157,18 @@
       "hourlyWage": 110,
       "rating": 4.82,
       "reviewsCount": 54,
-      "city": "Mumbai",
       "district": "Mumbai",
+      "city": "Mumbai",
       "division": "Konkan & Mumbai MMR",
-      "locality": "Andheri West Chowk",
-      "coordinates": {
-        "lat": 19.1197,
-        "lng": 72.8464
-      },
+      "location": "Andheri West Chowk, Mumbai",
+      "lat": 19.1197,
+      "lng": 72.8464,
+      "phone": "+91 98205 44332",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 92,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card + ITI Plumbing",
       "skills": [
         "Concealed Piping",
@@ -1214,6 +1191,7 @@
       "bio": "Expert in Western suburbs luxury apartment concealed plumbing and water pumps.",
       "bioMr": "अंधेरी, जुहू, विलेपार्ले भागात अत्याधुनिक नळ काम व प्रेशर पंप दुरुस्ती.",
       "bioHi": "अंधेरी व पश्चिमी उपनगरों में आधुनिक प्लंबिंग एवं प्रेशर पंप रिपेयर के माहिर।",
+      "locality": "Andheri West Chowk",
       "recentWork": [
         {
           "title": "Jaguar fittings in 2 bathrooms",
@@ -1227,13 +1205,25 @@
       "totalEarnings": 40300,
       "matchScore": 94,
       "distanceKm": 2.1,
-      "aiReason": "Gold Verified • Specialist in modern concealed plumbing"
+      "aiReason": "Gold Verified • Specialist in modern concealed plumbing",
+      "coordinates": {
+        "lat": 19.1197,
+        "lng": 72.8464
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 92,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7b",
       "id": "w-m3",
       "name": "Sunil Shinde",
-      "phone": "+91 98218 66778",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "trade": "Mason",
       "tradeMr": "गवंडी (मेसन)",
       "tradeHi": "राजमिस्त्री (मेसन)",
@@ -1242,21 +1232,18 @@
       "hourlyWage": 120,
       "rating": 4.85,
       "reviewsCount": 72,
-      "city": "Thane",
       "district": "Thane",
+      "city": "Thane",
       "division": "Konkan & Mumbai MMR",
-      "locality": "Teen Hath Naka Chowk",
-      "coordinates": {
-        "lat": 19.186,
-        "lng": 72.9759
-      },
+      "location": "Teen Hath Naka Chowk, Thane",
+      "lat": 19.186,
+      "lng": 72.9759,
+      "phone": "+91 98218 66778",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 96,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Italian Marble Laying",
@@ -1279,6 +1266,7 @@
       "bio": "Master mason for residential towers and bungalows across Thane and Ghodbunder Road.",
       "bioMr": "ठाणे शहर व घोडबंदर पट्ट्यात मार्बल, टाईल्स व दर्जेदार प्लास्टर कामाचे अनुभवी गवंडी.",
       "bioHi": "ठाणे और घोडबंदर क्षेत्र में मार्बल, टाइल्स और प्लास्टर के अनुभवी मिस्त्री।",
+      "locality": "Teen Hath Naka Chowk",
       "recentWork": [
         {
           "title": "Balcony tile waterproofing",
@@ -1292,13 +1280,25 @@
       "totalEarnings": 58800,
       "matchScore": 95,
       "distanceKm": 1.5,
-      "aiReason": "Top Mason • Tile & Waterproofing expert in Thane"
+      "aiReason": "Top Mason • Tile & Waterproofing expert in Thane",
+      "coordinates": {
+        "lat": 19.186,
+        "lng": 72.9759
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 96,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7c",
       "id": "w-m4",
       "name": "Kishor Patil",
-      "phone": "+91 98230 77889",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250",
       "trade": "Painter",
       "tradeMr": "रंगारी (पेंटर)",
       "tradeHi": "पेंटर (रंगाई)",
@@ -1307,21 +1307,18 @@
       "hourlyWage": 100,
       "rating": 4.79,
       "reviewsCount": 41,
-      "city": "Navi Mumbai",
       "district": "Navi Mumbai",
+      "city": "Navi Mumbai",
       "division": "Konkan & Mumbai MMR",
-      "locality": "Vashi Sector 17 Chowk",
-      "coordinates": {
-        "lat": 19.0771,
-        "lng": 72.9986
-      },
+      "location": "Vashi Sector 17 Chowk, Navi Mumbai",
+      "lat": 19.0771,
+      "lng": 72.9986,
+      "phone": "+91 98230 77889",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 91,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Airless Spray Painting",
@@ -1344,6 +1341,7 @@
       "bio": "Speed painter for commercial and residential spaces in Vashi, Nerul and Belapur.",
       "bioMr": "वाशी, नेरूळ व सीबीडी बेलापूर परिसरात जलद व चमकदार रंगकाम आणि पॉलिशिंग.",
       "bioHi": "वाशी और नवी मुंबई में प्रीमियम वॉल टेक्सचर और पेंटिंग स्पेशलिस्ट।",
+      "locality": "Vashi Sector 17 Chowk",
       "recentWork": [
         {
           "title": "Office interior royal touchup",
@@ -1357,13 +1355,25 @@
       "totalEarnings": 27600,
       "matchScore": 91,
       "distanceKm": 1.8,
-      "aiReason": "High-speed modern painting • Navi Mumbai hub"
+      "aiReason": "High-speed modern painting • Navi Mumbai hub",
+      "coordinates": {
+        "lat": 19.0771,
+        "lng": 72.9986
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 91,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7d",
       "id": "w-cs1",
       "name": "Pandurang Jadhav",
-      "phone": "+91 94222 33441",
-      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250",
       "trade": "Mason",
       "tradeMr": "गवंडी (मेसन)",
       "tradeHi": "राजमिस्त्री (मेसन)",
@@ -1372,21 +1382,18 @@
       "hourlyWage": 100,
       "rating": 4.9,
       "reviewsCount": 88,
-      "city": "Chhatrapati Sambhajinagar",
       "district": "Chhatrapati Sambhajinagar",
+      "city": "Chhatrapati Sambhajinagar",
       "division": "Marathwada",
-      "locality": "Kranti Chowk",
-      "coordinates": {
-        "lat": 19.8762,
-        "lng": 75.324
-      },
+      "location": "Kranti Chowk, Chhatrapati Sambhajinagar",
+      "lat": 19.8762,
+      "lng": 75.324,
+      "phone": "+91 94222 33441",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 97,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Heavy Stone Masonry",
@@ -1409,6 +1416,7 @@
       "bio": "Renowned head mason of Kranti Chowk with 13+ years building heritage & modern structures in Aurangabad.",
       "bioMr": "क्रांती चौक परिसरातील ज्येष्ठ व विश्वासू गवंडी मिस्त्री. आरसीसी व मजबूत बांधकामात तज्ज्ञ.",
       "bioHi": "छत्रपति संभाजीनगर में 13+ वर्षों का अनुभव। मजबूत आरसीसी और चिनाई कार्य।",
+      "locality": "Kranti Chowk",
       "recentWork": [
         {
           "title": "2-floor RCC column erection",
@@ -1422,13 +1430,25 @@
       "totalEarnings": 67200,
       "matchScore": 98,
       "distanceKm": 0.9,
-      "aiReason": "Senior Mason • 13 years trust in Sambhajinagar"
+      "aiReason": "Senior Mason • 13 years trust in Sambhajinagar",
+      "coordinates": {
+        "lat": 19.8762,
+        "lng": 75.324
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 97,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7e",
       "id": "w-cs2",
       "name": "Nitin Rathod",
-      "phone": "+91 94234 55667",
-      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=250",
       "trade": "Welder",
       "tradeMr": "वेल्डर (धातू जोडणी)",
       "tradeHi": "वेल्डर (धातु वेल्डिंग)",
@@ -1437,21 +1457,18 @@
       "hourlyWage": 95,
       "rating": 4.81,
       "reviewsCount": 39,
-      "city": "Chhatrapati Sambhajinagar",
       "district": "Chhatrapati Sambhajinagar",
+      "city": "Chhatrapati Sambhajinagar",
       "division": "Marathwada",
-      "locality": "CIDCO Cannaught Chowk",
-      "coordinates": {
-        "lat": 19.8784,
-        "lng": 75.3621
-      },
+      "location": "CIDCO Cannaught Chowk, Chhatrapati Sambhajinagar",
+      "lat": 19.8784,
+      "lng": 75.3621,
+      "phone": "+91 94234 55667",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 93,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card + ITI Welder",
       "skills": [
         "TIG/MIG Welding",
@@ -1474,6 +1491,7 @@
       "bio": "Industrial & commercial fabrication expert based in CIDCO MIDC corridor.",
       "bioMr": "सिडको व चिकलठाणा एमआयडीसी पट्ट्यात फॅब्रिकेशन, शटर व ग्रिल्सची उत्कृष्ट कामे.",
       "bioHi": "सिडको व एमआईडीसी क्षेत्र में शेड फैब्रिकेशन और वेल्डिंग के कुशल कारीगर।",
+      "locality": "CIDCO Cannaught Chowk",
       "recentWork": [
         {
           "title": "Godown gate welding fix",
@@ -1487,13 +1505,25 @@
       "totalEarnings": 28420,
       "matchScore": 93,
       "distanceKm": 1.4,
-      "aiReason": "Certified Welder • Heavy fabrication & shutters"
+      "aiReason": "Certified Welder • Heavy fabrication & shutters",
+      "coordinates": {
+        "lat": 19.8784,
+        "lng": 75.3621
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 93,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e7f",
       "id": "w-nd1",
       "name": "Govind Deshmukh",
-      "phone": "+91 94228 11990",
-      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=250",
       "trade": "Plumber",
       "tradeMr": "प्लंबर (नळ कारागीर)",
       "tradeHi": "प्लंबर (नलसाज)",
@@ -1502,21 +1532,18 @@
       "hourlyWage": 85,
       "rating": 4.77,
       "reviewsCount": 34,
-      "city": "Nanded",
       "district": "Nanded",
+      "city": "Nanded",
       "division": "Marathwada",
-      "locality": "Mahavir Chowk",
-      "coordinates": {
-        "lat": 19.1558,
-        "lng": 77.319
-      },
+      "location": "Mahavir Chowk, Nanded",
+      "lat": 19.1558,
+      "lng": 77.319,
+      "phone": "+91 94228 11990",
+      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 91,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Borewell Submersible Fix",
@@ -1539,6 +1566,7 @@
       "bio": "Reliable plumber in Nanded city covering Mahavir Chowk, Station Road, and VIP Road.",
       "bioMr": "नांदेड शहरात बोअरवेल, टाकी आणि घरगुती नळ दुरुस्तीसाठी तत्पर कारागीर.",
       "bioHi": "नांदेड शहर में बोरवेल और घरेलू पाइपलाइन का काम करने वाले विश्वसनीय प्लंबर।",
+      "locality": "Mahavir Chowk",
       "recentWork": [
         {
           "title": "Submersible pump replacement",
@@ -1552,13 +1580,25 @@
       "totalEarnings": 19760,
       "matchScore": 91,
       "distanceKm": 1.1,
-      "aiReason": "Borewell & pipe specialist in Nanded"
+      "aiReason": "Borewell & pipe specialist in Nanded",
+      "coordinates": {
+        "lat": 19.1558,
+        "lng": 77.319
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 91,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e80",
       "id": "w-lt1",
       "name": "Ashok Birajdar",
-      "phone": "+91 94237 88991",
-      "avatar": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=250",
       "trade": "Carpenter",
       "tradeMr": "सुतार (कारपेंटर)",
       "tradeHi": "बढ़ई (कारपेंटर)",
@@ -1567,21 +1607,18 @@
       "hourlyWage": 100,
       "rating": 4.84,
       "reviewsCount": 51,
-      "city": "Latur",
       "district": "Latur",
+      "city": "Latur",
       "division": "Marathwada",
-      "locality": "Gandhi Chowk",
-      "coordinates": {
-        "lat": 18.4088,
-        "lng": 76.5604
-      },
+      "location": "Gandhi Chowk, Latur",
+      "lat": 18.4088,
+      "lng": 76.5604,
+      "phone": "+91 94237 88991",
+      "avatar": "https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 95,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Teak Wood Doors",
@@ -1604,6 +1641,7 @@
       "bio": "Renowned carpenter in Latur Gandhi Chowk market for fine woodworks and modular cabinets.",
       "bioMr": "लातूर गांधी चौक परिसरातील प्रसिद्ध सुतार. सागवानी दरवाजे व मॉड्युलर फर्निचरचे माहीर.",
       "bioHi": "लातूर के प्रसिद्ध बढ़ई, सागवान की लकड़ी और मॉड्युलर किचन के विशेष जानकार।",
+      "locality": "Gandhi Chowk",
       "recentWork": [
         {
           "title": "Teak main door lock fix",
@@ -1617,13 +1655,25 @@
       "totalEarnings": 34200,
       "matchScore": 95,
       "distanceKm": 0.8,
-      "aiReason": "Diamond Verified • Master wood artisan in Latur"
+      "aiReason": "Diamond Verified • Master wood artisan in Latur",
+      "coordinates": {
+        "lat": 18.4088,
+        "lng": 76.5604
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 95,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e81",
       "id": "w-ng1",
       "name": "Rajendra Tembhare",
-      "phone": "+91 98227 44551",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "trade": "Electrician",
       "tradeMr": "इलेक्ट्रिशियन",
       "tradeHi": "इलेक्ट्रीशियन",
@@ -1632,21 +1682,18 @@
       "hourlyWage": 110,
       "rating": 4.87,
       "reviewsCount": 64,
-      "city": "Nagpur",
       "district": "Nagpur",
+      "city": "Nagpur",
       "division": "Vidarbha",
-      "locality": "Sitabuldi Chowk",
-      "coordinates": {
-        "lat": 21.1458,
-        "lng": 79.0882
-      },
+      "location": "Sitabuldi Chowk, Nagpur",
+      "lat": 21.1458,
+      "lng": 79.0882,
+      "phone": "+91 98227 44551",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 96,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card + Wireman Cert",
       "skills": [
         "Heavy Industrial Wiring",
@@ -1669,6 +1716,7 @@
       "bio": "Nagpur Sitabuldi hub wireman specializing in residential rewiring and solar grid connectivity.",
       "bioMr": "नागपूर सीताबर्डी व धरमपेठ भागातील अनुभवी इलेक्ट्रिशियन. सोलर व पॅनेल कामात निपुण.",
       "bioHi": "नागपुर सीताबर्डी के सीनियर इलेक्ट्रीशियन। सोलर और इंडस्ट्रियल वायरिंग एक्सपर्ट।",
+      "locality": "Sitabuldi Chowk",
       "recentWork": [
         {
           "title": "Commercial showroom light cabling",
@@ -1682,13 +1730,25 @@
       "totalEarnings": 48100,
       "matchScore": 96,
       "distanceKm": 1,
-      "aiReason": "Diamond Verified • Central Nagpur fast electrical dispatch"
+      "aiReason": "Diamond Verified • Central Nagpur fast electrical dispatch",
+      "coordinates": {
+        "lat": 21.1458,
+        "lng": 79.0882
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 96,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e82",
       "id": "w-ng2",
       "name": "Mukesh Meshram",
-      "phone": "+91 98231 66554",
-      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
       "trade": "Helper",
       "tradeMr": "मदतनीस / हमाल",
       "tradeHi": "हेल्पर / हम्माल",
@@ -1697,21 +1757,18 @@
       "hourlyWage": 75,
       "rating": 4.75,
       "reviewsCount": 37,
-      "city": "Nagpur",
       "district": "Nagpur",
+      "city": "Nagpur",
       "division": "Vidarbha",
-      "locality": "Cotton Market Chowk",
-      "coordinates": {
-        "lat": 21.1418,
-        "lng": 79.0965
-      },
+      "location": "Cotton Market Chowk, Nagpur",
+      "lat": 21.1418,
+      "lng": 79.0965,
+      "phone": "+91 98231 66554",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 90,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": false,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Loading & Unloading",
@@ -1734,6 +1791,7 @@
       "bio": "Energetic and honest helper for heavy freight, moving, and construction debris clearing.",
       "bioMr": "कॉटन मार्केट परिसरातील प्रामाणिक व कष्टाळू मदतनीस. घर व दुकान शिफ्टिंगसाठी उपलब्ध.",
       "bioHi": "कॉटन मार्केट नागपुर में भारी सामान लोडिंग और शिफ्टिंग के लिए भरोसेमंद हेल्पर।",
+      "locality": "Cotton Market Chowk",
       "recentWork": [
         {
           "title": "Godown 60-bag grain unloading",
@@ -1747,13 +1805,25 @@
       "totalEarnings": 24960,
       "matchScore": 90,
       "distanceKm": 1.3,
-      "aiReason": "Strong reliable helper at Cotton Market wholesale hub"
+      "aiReason": "Strong reliable helper at Cotton Market wholesale hub",
+      "coordinates": {
+        "lat": 21.1418,
+        "lng": 79.0965
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 90,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": false,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e83",
       "id": "w-am1",
       "name": "Vilas Wankhede",
-      "phone": "+91 94229 22338",
-      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=250",
       "trade": "Painter",
       "tradeMr": "रंगारी (पेंटर)",
       "tradeHi": "पेंटर (रंगाई)",
@@ -1762,21 +1832,18 @@
       "hourlyWage": 90,
       "rating": 4.8,
       "reviewsCount": 43,
-      "city": "Amravati",
       "district": "Amravati",
+      "city": "Amravati",
       "division": "Vidarbha",
-      "locality": "Rajkamal Chowk",
-      "coordinates": {
-        "lat": 20.932,
-        "lng": 77.7523
-      },
+      "location": "Rajkamal Chowk, Amravati",
+      "lat": 20.932,
+      "lng": 77.7523,
+      "phone": "+91 94229 22338",
+      "avatar": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 92,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Exterior Weathercoat",
@@ -1799,6 +1866,7 @@
       "bio": "Amravati's leading painter for bungalows, schools, and commercial showrooms.",
       "bioMr": "राजकमल चौक व कॅम्प परिसरातील कुशल रंगारी. वॉटरप्रूफ व टिकाऊ रंगकामात तज्ज्ञ.",
       "bioHi": "अमरावती में राजकमल चौक के अनुभवी पेंटर। टिकाऊ और सुंदर फिनिशिंग कार्य।",
+      "locality": "Rajkamal Chowk",
       "recentWork": [
         {
           "title": "Bungalow compound wall painting",
@@ -1812,13 +1880,25 @@
       "totalEarnings": 24200,
       "matchScore": 92,
       "distanceKm": 1,
-      "aiReason": "Weathercoat & Putty specialist in Amravati"
+      "aiReason": "Weathercoat & Putty specialist in Amravati",
+      "coordinates": {
+        "lat": 20.932,
+        "lng": 77.7523
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 92,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e84",
       "id": "w-ns1",
       "name": "Ramesh Sonawane",
-      "phone": "+91 98226 77112",
-      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=250",
       "trade": "Painter",
       "tradeMr": "रंगारी (पेंटर)",
       "tradeHi": "पेंटर (रंगाई)",
@@ -1827,21 +1907,18 @@
       "hourlyWage": 100,
       "rating": 4.86,
       "reviewsCount": 59,
-      "city": "Nashik",
       "district": "Nashik",
+      "city": "Nashik",
       "division": "North Maharashtra",
-      "locality": "Dwarka Chowk",
-      "coordinates": {
-        "lat": 19.9975,
-        "lng": 73.7898
-      },
+      "location": "Dwarka Chowk, Nashik",
+      "lat": 19.9975,
+      "lng": 73.7898,
+      "phone": "+91 98226 77112",
+      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 95,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Royal Luxury Emulsion",
@@ -1864,6 +1941,7 @@
       "bio": "Nashik's Dwarka Chowk premium decorator & painter. Complete villa and flat re-paints.",
       "bioMr": "नाशिक द्वारका चौक व गंगापूर रोडवरील नामांकित रंगारी. दर्जेदार रॉयल फिनिशची खात्री.",
       "bioHi": "नासिक में द्वारका चौक और गंगापुर रोड पर प्रीमियम पेंटिंग और टेक्सचर के उस्ताद।",
+      "locality": "Dwarka Chowk",
       "recentWork": [
         {
           "title": "Row house front elevation texture",
@@ -1877,13 +1955,25 @@
       "totalEarnings": 39000,
       "matchScore": 95,
       "distanceKm": 1.2,
-      "aiReason": "Diamond Verified • Nashik prime highway corridor painter"
+      "aiReason": "Diamond Verified • Nashik prime highway corridor painter",
+      "coordinates": {
+        "lat": 19.9975,
+        "lng": 73.7898
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 95,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e85",
       "id": "w-ns2",
       "name": "Bapu Nikam",
-      "phone": "+91 98235 99443",
-      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250",
       "trade": "Carpenter",
       "tradeMr": "सुतार (कारपेंटर)",
       "tradeHi": "बढ़ई (कारपेंटर)",
@@ -1892,21 +1982,18 @@
       "hourlyWage": 105,
       "rating": 4.81,
       "reviewsCount": 46,
-      "city": "Nashik",
       "district": "Nashik",
+      "city": "Nashik",
       "division": "North Maharashtra",
-      "locality": "Shalimar Chowk",
-      "coordinates": {
-        "lat": 20.001,
-        "lng": 73.785
-      },
+      "location": "Shalimar Chowk, Nashik",
+      "lat": 20.001,
+      "lng": 73.785,
+      "phone": "+91 98235 99443",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 93,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Bed & Wardrobe Making",
@@ -1929,6 +2016,7 @@
       "bio": "Master of ply and laminate woodwork based in Shalimar and Old Nashik.",
       "bioMr": "शालिमार चौक परिसरातील अनुभवी सुतार. प्लायवुड फर्निचर व मॉड्युलर कामे.",
       "bioHi": "नासिक शालिमार के कुशल बढ़ई। फर्नीचर और मॉड्युलर फिटिंग में माहिर।",
+      "locality": "Shalimar Chowk",
       "recentWork": [
         {
           "title": "Sliding wardrobe laminate work",
@@ -1942,13 +2030,25 @@
       "totalEarnings": 31000,
       "matchScore": 93,
       "distanceKm": 1.4,
-      "aiReason": "Gold Verified • Furniture & laminate specialist in Nashik"
+      "aiReason": "Gold Verified • Furniture & laminate specialist in Nashik",
+      "coordinates": {
+        "lat": 20.001,
+        "lng": 73.785
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 93,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e86",
       "id": "w-jg1",
       "name": "Dnyaneshwar Chaudhari",
-      "phone": "+91 94227 12345",
-      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250",
       "trade": "Plumber",
       "tradeMr": "प्लंबर (नळ कारागीर)",
       "tradeHi": "प्लंबर (नलसाज)",
@@ -1957,21 +2057,18 @@
       "hourlyWage": 90,
       "rating": 4.79,
       "reviewsCount": 36,
-      "city": "Jalgaon",
       "district": "Jalgaon",
+      "city": "Jalgaon",
       "division": "North Maharashtra",
-      "locality": "Tower Chowk",
-      "coordinates": {
-        "lat": 21.0077,
-        "lng": 75.5626
-      },
+      "location": "Tower Chowk, Jalgaon",
+      "lat": 21.0077,
+      "lng": 75.5626,
+      "phone": "+91 94227 12345",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 92,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card + ITI Plumbing",
       "skills": [
         "PVC Drainage Line",
@@ -1994,6 +2091,7 @@
       "bio": "Trusted plumber in Jalgaon Tower Chowk market for home piping and solar water connections.",
       "bioMr": "जळगाव टॉवर चौक व नवी पेठ भागातील कुशल प्लंबर. सोलर व घरगुती पाईपलाईन तज्ज्ञ.",
       "bioHi": "जलगांव टॉवर चौक के कुशल प्लंबर। सोलर वॉटर और ड्रेनेज लाइन के विशेषज्ञ।",
+      "locality": "Tower Chowk",
       "recentWork": [
         {
           "title": "Solar water line leak fix",
@@ -2007,13 +2105,25 @@
       "totalEarnings": 22260,
       "matchScore": 92,
       "distanceKm": 0.9,
-      "aiReason": "Solar & pipe leak expert in Jalgaon"
+      "aiReason": "Solar & pipe leak expert in Jalgaon",
+      "coordinates": {
+        "lat": 21.0077,
+        "lng": 75.5626
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 92,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e87",
       "id": "w-st1",
       "name": "Ananda Bhosale",
-      "phone": "+91 94220 99881",
-      "avatar": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=250",
       "trade": "Mason",
       "tradeMr": "गवंडी (मेसन)",
       "tradeHi": "राजमिस्त्री (मेसन)",
@@ -2022,21 +2132,18 @@
       "hourlyWage": 105,
       "rating": 4.89,
       "reviewsCount": 66,
-      "city": "Satara",
       "district": "Satara",
+      "city": "Satara",
       "division": "Western Maharashtra",
-      "locality": "Powai Naka Chowk",
-      "coordinates": {
-        "lat": 17.6805,
-        "lng": 73.993
-      },
+      "location": "Powai Naka Chowk, Satara",
+      "lat": 17.6805,
+      "lng": 73.993,
+      "phone": "+91 94220 99881",
+      "avatar": "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 96,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Basalt Stone Work",
@@ -2059,6 +2166,7 @@
       "bio": "Satara district veteran mason known for solid stone foundations and neat tile finishing.",
       "bioMr": "सातारा पोवई नाका भागातील ज्येष्ठ गवंडी. ऐतिहासिक व आधुनिक दगडी बांधकामात हातखंडा.",
       "bioHi": "सातारा पोवई नाका के वरिष्ठ मिस्त्री। मजबूत पत्थर और टाइल्स कार्य के महारथी।",
+      "locality": "Powai Naka Chowk",
       "recentWork": [
         {
           "title": "Stone compound wall build",
@@ -2072,13 +2180,25 @@
       "totalEarnings": 48980,
       "matchScore": 96,
       "distanceKm": 1.1,
-      "aiReason": "Diamond Verified • Master stone & tile mason in Satara"
+      "aiReason": "Diamond Verified • Master stone & tile mason in Satara",
+      "coordinates": {
+        "lat": 17.6805,
+        "lng": 73.993
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 96,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e88",
       "id": "w-sg1",
       "name": "Sachin Mane",
-      "phone": "+91 94238 66110",
-      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=250",
       "trade": "Welder",
       "tradeMr": "वेल्डर (धातू जोडणी)",
       "tradeHi": "वेल्डर (धातु वेल्डिंग)",
@@ -2087,21 +2207,18 @@
       "hourlyWage": 95,
       "rating": 4.82,
       "reviewsCount": 44,
-      "city": "Sangli",
       "district": "Sangli",
+      "city": "Sangli",
       "division": "Western Maharashtra",
-      "locality": "Vishrambag Chowk",
-      "coordinates": {
-        "lat": 16.8524,
-        "lng": 74.5815
-      },
+      "location": "Vishrambag Chowk, Sangli",
+      "lat": 16.8524,
+      "lng": 74.5815,
+      "phone": "+91 94238 66110",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Gold",
-      "trustScore": 93,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card + ITI Welder",
       "skills": [
         "Main Gate Fabrication",
@@ -2124,6 +2241,7 @@
       "bio": "Precision gate and grill fabricator servicing Sangli and Miraj twin cities.",
       "bioMr": "सांगली विश्रामबाग व मिरज परिसरातील विश्वासू वेल्डर व फॅब्रिकेशन कारागीर.",
       "bioHi": "सांगली और मिरज क्षेत्र में मेन गेट और सेफ्टी ग्रिल के कुशल वेल्डर।",
+      "locality": "Vishrambag Chowk",
       "recentWork": [
         {
           "title": "Sliding main gate bearing fix",
@@ -2137,13 +2255,25 @@
       "totalEarnings": 27360,
       "matchScore": 93,
       "distanceKm": 1.3,
-      "aiReason": "Gold Verified • Sangli-Miraj fabrication expert"
+      "aiReason": "Gold Verified • Sangli-Miraj fabrication expert",
+      "coordinates": {
+        "lat": 16.8524,
+        "lng": 74.5815
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Gold",
+      "trustScore": 93,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
     },
     {
+      "_id": "6acb90569624e2d306c20e89",
       "id": "w-so1",
       "name": "Ambadas Kore",
-      "phone": "+91 94220 55221",
-      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "trade": "Mason",
       "tradeMr": "गवंडी (मेसन)",
       "tradeHi": "राजमिस्त्री (मेसन)",
@@ -2152,21 +2282,18 @@
       "hourlyWage": 95,
       "rating": 4.83,
       "reviewsCount": 52,
-      "city": "Solapur",
       "district": "Solapur",
+      "city": "Solapur",
       "division": "Western Maharashtra",
-      "locality": "Saat Rasta Chowk",
-      "coordinates": {
-        "lat": 17.6599,
-        "lng": 75.9064
-      },
+      "location": "Saat Rasta Chowk, Solapur",
+      "lat": 17.6599,
+      "lng": 75.9064,
+      "phone": "+91 94220 55221",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=250",
       "isAvailable": true,
-      "isVerified": true,
-      "verificationBadge": "TrustShield Diamond",
-      "trustScore": 94,
-      "aadhaarVerified": true,
-      "policeVerified": true,
-      "skillCertified": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
       "idProofType": "Aadhaar Card",
       "skills": [
         "Granite Kitchen Top",
@@ -2189,6 +2316,7 @@
       "bio": "Flooring and granite specialist covering Solapur city and industrial MIDC textile areas.",
       "bioMr": "सोलापूर सात रस्ता व एमआयडीसी भागातील अव्वल गवंडी व टाईल्स मिस्त्री.",
       "bioHi": "सोलापुर सात रास्ता क्षेत्र में ग्रेनाइट और टाइल्स के विख्यात मिस्त्री।",
+      "locality": "Saat Rasta Chowk",
       "recentWork": [
         {
           "title": "Granite platform fitting in kitchen",
@@ -2202,47 +2330,112 @@
       "totalEarnings": 31900,
       "matchScore": 94,
       "distanceKm": 1,
-      "aiReason": "Diamond Verified • Kitchen granite & tile flooring ace in Solapur"
+      "aiReason": "Diamond Verified • Kitchen granite & tile flooring ace in Solapur",
+      "coordinates": {
+        "lat": 17.6599,
+        "lng": 75.9064
+      },
+      "isVerified": true,
+      "verificationBadge": "TrustShield Diamond",
+      "trustScore": 94,
+      "aadhaarVerified": true,
+      "policeVerified": true,
+      "skillCertified": true,
+      "__v": 0,
+      "createdAt": "2026-10-11T13:34:14.762Z",
+      "updatedAt": "2026-10-11T13:34:14.762Z"
+    },
+    {
+      "_id": "6acb907b9624e2d306c20e8f",
+      "id": "w-1791725691180",
+      "name": "Tanaji Patil",
+      "trade": "Electrician",
+      "tradeMr": "इलेक्ट्रिशियन",
+      "tradeHi": "इलेक्ट्रीशियन",
+      "experienceYears": 4,
+      "dailyWage": 600,
+      "hourlyWage": 86,
+      "rating": 5,
+      "reviewsCount": 1,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "division": "western",
+      "location": "Shahupuri, Kolhapur",
+      "locationArea": "Shahupuri",
+      "lat": 16.70440992732087,
+      "lng": 74.24232434684811,
+      "phone": "+91 98229 11223",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Verified",
+      "skills": [
+        "Wiring",
+        "Switchboard Repair"
+      ],
+      "skillsMr": [],
+      "skillsHi": [],
+      "bio": "4 years of dedicated experience in Electrician. Reliable and verified.",
+      "recentWork": [],
+      "completedJobsCount": 0,
+      "totalEarnings": 0,
+      "matchScore": 88,
+      "distanceKm": 2.5,
+      "aiReason": "Electrician registered in Kolhapur • Available now • Fits ₹600 budget",
+      "createdAt": "2026-10-11T13:34:51.184Z",
+      "updatedAt": "2026-10-11T13:34:51.184Z",
+      "__v": 0
+    },
+    {
+      "_id": "6acc487c4a6120e5341f197a",
+      "id": "w-reg-1791772796419",
+      "name": "Ganesh Shinde",
+      "trade": "Electrician",
+      "experienceYears": 3,
+      "dailyWage": 600,
+      "rating": 5,
+      "reviewsCount": 1,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "division": "Pune Division",
+      "location": "Kolhapur, Maharashtra",
+      "lat": 18.5204,
+      "lng": 73.8567,
+      "phone": "+91 99223 34455",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": false,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Verified",
+      "skills": [
+        "Electrician",
+        "Timely Delivery"
+      ],
+      "skillsMr": [],
+      "skillsHi": [],
+      "recentWork": [],
+      "completedJobsCount": 0,
+      "totalEarnings": 0,
+      "matchScore": 88,
+      "distanceKm": 2.5,
+      "email": "newtestuser_1791772796280@kaamsetu.in",
+      "pincode": "416002",
+      "languages": [
+        "Marathi",
+        "Hindi"
+      ],
+      "chowkHub": "Bindu Chowk, Kolhapur",
+      "createdAt": "2026-10-12T02:39:56.442Z",
+      "updatedAt": "2026-10-12T02:39:56.442Z",
+      "__v": 0
     }
   ],
   "jobs": [
     {
-      "id": "job-test-1791722030032",
-      "workerId": "w-test-1791722030028",
-      "title": "Wall plastering",
-      "offeredWage": 800,
-      "status": "completed",
-      "messages": [
-        {
-          "id": "msg-1791722030034-syka",
-          "sender": "employer",
-          "senderName": "Site Supervisor",
-          "text": "Material is ready at site",
-          "time": "06:03 pm"
-        }
-      ],
-      "rating": 5,
-      "analyticsCounted": true
-    },
-    {
-      "id": "job-test-1791721965350",
-      "workerId": "w-test-1791721965347",
-      "title": "Wall plastering",
-      "offeredWage": 800,
-      "status": "completed",
-      "messages": [
-        {
-          "id": "msg-1791721965351-sf1d",
-          "sender": "employer",
-          "senderName": "Site Supervisor",
-          "text": "Material is ready at site",
-          "time": "06:02 pm"
-        }
-      ],
-      "rating": 5,
-      "analyticsCounted": true
-    },
-    {
+      "_id": "6acb90579624e2d306c20e8a",
       "id": "job-101",
       "employerName": "Aditya Deshmukh (Contractor)",
       "employerPhone": "+91 98221 00011",
@@ -2258,6 +2451,7 @@
       "matchScore": 94,
       "rating": null,
       "review": null,
+      "analyticsCounted": false,
       "messages": [
         {
           "id": "msg-1",
@@ -2274,18 +2468,13 @@
           "text": "मी निघालो आहे. 15 मिनिटांत पोहोचतो.",
           "translatedText": "I have left. Will reach the site in 15 minutes.",
           "time": "09:38 AM"
-        },
-        {
-          "id": "msg-1791721111625-9p19",
-          "sender": "employer",
-          "senderName": "TestUser",
-          "text": "&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;Hello from customer",
-          "translatedText": "&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;Hello from customer",
-          "time": "05:48 pm"
         }
-      ]
+      ],
+      "__v": 0,
+      "updatedAt": "2026-10-11T13:34:15.324Z"
     },
     {
+      "_id": "6acb90579624e2d306c20e8b",
       "id": "job-102",
       "employerName": "Meera Patel (Homeowner)",
       "employerPhone": "+91 98234 55566",
@@ -2302,9 +2491,13 @@
       "matchScore": 91,
       "rating": 5,
       "review": "Arrived within 30 minutes! Diagnosed short circuit instantly and fixed cleanly. Highly recommended.",
-      "messages": []
+      "analyticsCounted": false,
+      "messages": [],
+      "__v": 0,
+      "updatedAt": "2026-10-11T13:34:15.324Z"
     },
     {
+      "_id": "6acb90579624e2d306c20e8c",
       "id": "job-103",
       "employerName": "Rajiv Joshi (Shop Owner)",
       "employerPhone": "+91 98909 88877",
@@ -2320,9 +2513,13 @@
       "matchScore": 89,
       "rating": null,
       "review": null,
-      "messages": []
+      "analyticsCounted": false,
+      "messages": [],
+      "__v": 0,
+      "updatedAt": "2026-10-11T13:34:15.324Z"
     },
     {
+      "_id": "6acb90579624e2d306c20e8d",
       "id": "job-104",
       "employerName": "Vikram Rane (Kolhapur Business)",
       "employerPhone": "+91 98229 55432",
@@ -2338,6 +2535,7 @@
       "matchScore": 96,
       "rating": null,
       "review": null,
+      "analyticsCounted": false,
       "messages": [
         {
           "id": "msg-k1",
@@ -2355,14 +2553,84 @@
           "translatedText": "Yes sir, I will reach in 10 minutes.",
           "time": "12:07 PM"
         }
-      ]
+      ],
+      "__v": 0,
+      "updatedAt": "2026-10-11T13:34:15.324Z"
     }
   ],
   "analytics": {
-    "totalGigsCompleted": 250,
-    "totalEarningsDisbursed": 144400,
+    "totalGigsCompleted": 248,
+    "totalEarningsDisbursed": 142800,
     "avgTimeToHireMinutes": 8.4,
     "chowkWaitTimeHours": 4.5,
     "repeatHiringRate": 78
-  }
+  },
+  "users": [
+    {
+      "_id": "6acc487c4a6120e5341f197b",
+      "id": "usr-1791772796433",
+      "name": "Ganesh Shinde",
+      "email": "newtestuser_1791772796280@kaamsetu.in",
+      "phone": "+91 99223 34455",
+      "passwordHash": "$2b$10$xcdLBuH9eBN8lVB43Qhgx.s3hxisD2uNiMCffVRwIfFPBhPhwTT7u",
+      "role": "worker",
+      "workerId": "w-reg-1791772796419",
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "isEmailVerified": false,
+      "resetPasswordToken": null,
+      "resetPasswordCode": null,
+      "resetPasswordExpires": null,
+      "lastLoginAt": null,
+      "createdAt": "2026-10-12T02:39:56.433Z",
+      "updatedAt": "2026-10-12T02:39:56.433Z",
+      "__v": 0
+    },
+    {
+      "id": "usr-emp-101",
+      "name": "Aditya Deshmukh (Contractor)",
+      "email": "aditya@kaamsetu.in",
+      "phone": "+91 98221 00011",
+      "passwordHash": "$2b$10$oy6Ppvc1GvArTLdQ0RlZzu5hx00rPqDCkKy1N3Alq2X1ppGOiAHjO",
+      "role": "employer",
+      "district": "Pune",
+      "city": "Pune",
+      "isEmailVerified": true
+    },
+    {
+      "id": "usr-wrk-101",
+      "name": "Bandu Patil",
+      "email": "bandu@kaamsetu.in",
+      "phone": "+91 98229 55432",
+      "passwordHash": "$2b$10$oy6Ppvc1GvArTLdQ0RlZzu5hx00rPqDCkKy1N3Alq2X1ppGOiAHjO",
+      "role": "worker",
+      "workerId": "w-k1",
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "isEmailVerified": true
+    },
+    {
+      "id": "usr-wrk-102",
+      "name": "Ramesh Pawar",
+      "email": "ramesh@kaamsetu.in",
+      "phone": "+91 97654 23891",
+      "passwordHash": "$2b$10$oy6Ppvc1GvArTLdQ0RlZzu5hx00rPqDCkKy1N3Alq2X1ppGOiAHjO",
+      "role": "worker",
+      "workerId": "w-2",
+      "district": "Pune",
+      "city": "Pune",
+      "isEmailVerified": true
+    },
+    {
+      "id": "usr-adm-101",
+      "name": "Chief Verification Officer",
+      "email": "admin@kaamsetu.in",
+      "phone": "+91 98000 00000",
+      "passwordHash": "$2b$10$oy6Ppvc1GvArTLdQ0RlZzu5hx00rPqDCkKy1N3Alq2X1ppGOiAHjO",
+      "role": "admin",
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "isEmailVerified": true
+    }
+  ]
 }

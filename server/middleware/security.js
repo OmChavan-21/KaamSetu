@@ -308,6 +308,26 @@ export function requireAdmin(req, res, next) {
 }
 
 /**
+ * Middleware: Require Valid Authentication Token (Any Role)
+ */
+export function requireAuth(req, res, next) {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized: Authentication token required' });
+  }
+
+  const token = authHeader.split(' ')[1];
+  const payload = verifyToken(token);
+
+  if (!payload) {
+    return res.status(401).json({ error: 'Unauthorized: Invalid or expired token' });
+  }
+
+  req.user = payload;
+  next();
+}
+
+/**
  * In-memory Mock OTP Store (Expires in 3 mins)
  */
 const otpStore = new Map();

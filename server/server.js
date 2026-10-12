@@ -2,12 +2,15 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
+import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
 import { fileURLToPath } from 'url';
 import { db } from './data/db.js';
 import { initMongoConnection, isMongoConnected } from './data/mongoConnection.js';
 import { rankWorkers, calculateDistanceKm } from './ai/matchEngine.js';
 import { processAssistantMessage, translateText } from './ai/aiAssistant.js';
 import { MAHARASHTRA_DIVISIONS, MAHARASHTRA_DISTRICTS, findClosestDistrict } from './data/maharashtraData.js';
+import { sendPasswordResetEmail } from './services/emailService.js';
 import {
   securityHeadersMiddleware,
   inputSanitizerMiddleware,
@@ -19,6 +22,7 @@ import {
   generateToken,
   verifyToken,
   requireAdmin,
+  requireAuth,
   sendOtpForPhone,
   verifyOtpForPhone,
   validateAvatarUrl,
@@ -427,6 +431,250 @@ app.post('/api/jobs/:id/messages', async (req, res) => {
 // -------------------------------------------------------------
 // Authentication, MFA / OTP & Security Verification Endpoints
 // -------------------------------------------------------------
+
+function sanitizeUser(user) {
+  if (!user) return null;
+  const { passwordHash, resetPasswordToken, resetPasswordCode, resetPasswordExpires, ...safeUser } = user;
+  return safeUser;
+}
+
+// User Registration (Email/Password + Role)
+app.post('/api/auth/register', async (req, res) => {
+  try {
+    const { name, email, phone, password, role, district, city, workerTrade, workerDailyWage } = req.body;
+    
+    if (!name || !name.trim()) {
+      return res.status(400).json({ error: 'Full name is required' });
+    }
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: 'Valid email address is required' });
+    }
+    if (!password || password.length < 6) {
+      return res.status(400).json({ error: 'Password must be at least 6 characters long' });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    const existing = db.getUserByEmail(cleanEmail);
+    if (existing) {
+      return res.status(409).json({ error: 'An account with this email address already exists. Please sign in or reset your password.' });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(password, salt);
+    const userRole = role === 'worker' ? 'worker' : 'employer';
+
+    let workerId = null;
+    if (userRole === 'worker') {
+      workerId = `w-reg-${Date.now()}`;
+      db.addWorker({
+        id: workerId,
+        name: name.trim(),
+        phone: phone || '+91 98000 00000',
+        email: cleanEmail,
+        trade: workerTrade || 'General Artisan / Shramik',
+        rating: 5.0,
+        reviewsCount: 1,
+        experienceYears: 3,
+        dailyWage: Number(workerDailyWage) || 600,
+        city: city || 'Kolhapur',
+        district: district || 'Kolhapur',
+        location: city ? `${city}, Maharashtra` : 'Kolhapur, Maharashtra',
+        division: 'Pune Division',
+        pincode: '416002',
+        isAvailable: true,
+        isIdentityVerified: false,
+        skills: [workerTrade || 'General Labor', 'Timely Delivery'],
+        languages: ['Marathi', 'Hindi'],
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+        chowkHub: 'Bindu Chowk, Kolhapur',
+        completedJobsCount: 0,
+        totalEarnings: 0
+      });
+    }
+
+    const newUser = {
+      id: `usr-${Date.now()}`,
+      name: name.trim(),
+      email: cleanEmail,
+      phone: phone || '',
+      passwordHash,
+      role: userRole,
+      workerId,
+      district: district || 'Kolhapur',
+      city: city || 'Kolhapur',
+      isEmailVerified: false,
+      createdAt: new Date().toISOString()
+    };
+
+    db.addUser(newUser);
+
+    const token = generateToken({
+      id: newUser.id,
+      email: newUser.email,
+      role: newUser.role,
+      name: newUser.name,
+      workerId: newUser.workerId
+    }, 72);
+
+    res.status(201).json({
+      success: true,
+      token,
+      user: sanitizeUser(newUser),
+      message: 'Account created successfully! Welcome to KaamSetu.'
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// User Login (Email & Password)
+app.post('/api/auth/login', (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      return res.status(400).json({ error: 'Email and password are required' });
+    }
+
+    const user = db.getUserByEmail(email);
+    if (!user) {
+      return res.status(401).json({ error: 'Invalid email address or password' });
+    }
+
+    const isMatch = bcrypt.compareSync(password, user.passwordHash);
+    if (!isMatch) {
+      return res.status(401).json({ error: 'Invalid email address or password' });
+    }
+
+    db.updateUser(user.id, { lastLoginAt: new Date().toISOString() });
+
+    const token = generateToken({
+      id: user.id,
+      email: user.email,
+      role: user.role,
+      name: user.name,
+      workerId: user.workerId
+    }, 72);
+
+    res.json({
+      success: true,
+      token,
+      user: sanitizeUser(user),
+      message: 'Signed in successfully!'
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Get Current Authenticated Profile
+app.get('/api/auth/me', requireAuth, (req, res) => {
+  try {
+    const user = db.getUserById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ error: 'User profile not found' });
+    }
+    res.json({
+      success: true,
+      user: sanitizeUser(user)
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Request Password Reset Link / Code
+app.post('/api/auth/forgot-password', otpLimiter, async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email || !email.trim()) {
+      return res.status(400).json({ error: 'Email address is required' });
+    }
+
+    const user = db.getUserByEmail(email);
+    if (!user) {
+      // Return success response to prevent email harvesting
+      return res.json({
+        success: true,
+        message: 'If an account exists with this email, password reset instructions have been dispatched.'
+      });
+    }
+
+    const resetCode = String(Math.floor(100000 + Math.random() * 900000));
+    const resetToken = crypto.randomBytes(24).toString('hex');
+    const resetPasswordExpires = new Date(Date.now() + 15 * 60 * 1000).toISOString();
+
+    db.updateUser(user.id, {
+      resetPasswordToken: resetToken,
+      resetPasswordCode: resetCode,
+      resetPasswordExpires
+    });
+
+    const emailResult = await sendPasswordResetEmail({
+      to: user.email,
+      name: user.name,
+      resetToken,
+      resetCode
+    });
+
+    res.json({
+      success: true,
+      message: 'Password reset code and link have been dispatched to your email!',
+      email: user.email,
+      devPreview: emailResult.mode === 'dev_preview' ? {
+        resetCode,
+        resetToken,
+        resetLink: emailResult.resetLink
+      } : null
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Confirm Password Reset with Token or 6-digit Code
+app.post('/api/auth/reset-password', async (req, res) => {
+  try {
+    const { tokenOrCode, newPassword } = req.body;
+    if (!tokenOrCode || !tokenOrCode.trim()) {
+      return res.status(400).json({ error: 'Reset code or token is required' });
+    }
+    if (!newPassword || newPassword.length < 6) {
+      return res.status(400).json({ error: 'New password must be at least 6 characters long' });
+    }
+
+    const user = db.getUserByResetToken(tokenOrCode);
+    if (!user) {
+      return res.status(400).json({ error: 'Invalid or expired reset code. Please request a new code.' });
+    }
+
+    const salt = bcrypt.genSaltSync(10);
+    const passwordHash = bcrypt.hashSync(newPassword, salt);
+
+    const updatedUser = db.updateUser(user.id, {
+      passwordHash,
+      resetPasswordToken: null,
+      resetPasswordCode: null,
+      resetPasswordExpires: null
+    });
+
+    const token = generateToken({
+      id: updatedUser.id,
+      email: updatedUser.email,
+      role: updatedUser.role,
+      name: updatedUser.name,
+      workerId: updatedUser.workerId
+    }, 72);
+
+    res.json({
+      success: true,
+      message: 'Your password has been successfully reset! You are now logged in.',
+      token,
+      user: sanitizeUser(updatedUser)
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Admin Authentication with Timing-safe PIN check, Rate Limiting & Signed Token
 app.post('/api/auth/admin-login', adminAuthLimiter, (req, res) => {
