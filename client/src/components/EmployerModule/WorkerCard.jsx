@@ -120,7 +120,7 @@ export function WorkerCard({ worker }) {
 
         {/* Skill Pills */}
         <div className="flex flex-wrap gap-1.5 mb-5">
-          {worker.skills.slice(0, 3).map((skill, idx) => (
+          {(worker.skills || [worker.trade]).slice(0, 3).map((skill, idx) => (
             <span
               key={idx}
               className="text-[11px] font-semibold text-slate-600 bg-slate-100/80 px-2 py-0.5 rounded-lg"
@@ -128,8 +128,8 @@ export function WorkerCard({ worker }) {
               • {skill}
             </span>
           ))}
-          {worker.skills.length > 3 && (
-            <span className="text-[11px] text-slate-400 font-medium">+{worker.skills.length - 3}</span>
+          {(worker.skills?.length || 0) > 3 && (
+            <span className="text-[11px] text-slate-400 font-medium">+{(worker.skills?.length || 0) - 3}</span>
           )}
         </div>
       </div>

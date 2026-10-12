@@ -19,6 +19,10 @@ export function KaamSetuSaathi() {
     setShowAiAssistant, 
     runAiMatch, 
     setFilters, 
+    userDistrict,
+    userCity,
+    userCoords,
+    selectDistrict,
     language, 
     t 
   } = useApp();
@@ -120,7 +124,13 @@ export function KaamSetuSaathi() {
       const res = await fetch('/api/ai/assist', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, language })
+        body: JSON.stringify({ 
+          message: text, 
+          language,
+          userDistrict,
+          userCity,
+          userCoords
+        })
       });
 
       if (res.ok) {
@@ -135,18 +145,27 @@ export function KaamSetuSaathi() {
         // Auto speak response
         speakText(data.responseText);
 
+        // If district was identified and is different, switch district
+        if (data.filters?.district && data.filters.district !== 'all' && data.filters.district.toLowerCase() !== userDistrict?.toLowerCase()) {
+          selectDistrict(data.filters.district);
+        }
+
         // If trade was detected, update search filters and run AI Match!
         if (data.filters && data.filters.trade) {
           setFilters(prev => ({
             ...prev,
             trade: data.filters.trade,
-            location: data.filters.location !== 'Pune' ? data.filters.location : prev.location,
+            district: data.filters.district || prev.district,
+            city: data.filters.district || prev.city,
+            location: data.filters.location || prev.location,
             maxWage: data.filters.budget || prev.maxWage,
             search: data.filters.needDescription || ''
           }));
 
           runAiMatch({
             trade: data.filters.trade,
+            district: data.filters.district || userDistrict,
+            city: data.filters.district || userDistrict,
             location: data.filters.location,
             budget: data.filters.budget,
             needDescription: data.filters.needDescription
@@ -225,17 +244,28 @@ export function KaamSetuSaathi() {
                 <p className="text-sm font-normal">{m.text}</p>
 
                 {/* Filter tags applied by AI */}
-                {m.filters && m.filters.trade && (
+                {m.filters && (m.filters.trade || m.filters.district || m.filters.location) && (
                   <div className="mt-2.5 pt-2 border-t border-slate-100 flex flex-wrap gap-1.5 text-[10px]">
-                    <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-bold">
-                      Trade: {m.filters.trade}
-                    </span>
-                    <span className="bg-teal-100 text-teal-800 px-2 py-0.5 rounded-md font-bold">
-                      Location: {m.filters.location}
-                    </span>
-                    <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md font-bold">
-                      Budget: ₹{m.filters.budget}
-                    </span>
+                    {m.filters.trade && (
+                      <span className="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded-md font-bold">
+                        Trade: {m.filters.trade}
+                      </span>
+                    )}
+                    {m.filters.district && (
+                      <span className="bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-md font-bold">
+                        District: {m.filters.district}
+                      </span>
+                    )}
+                    {m.filters.location && (
+                      <span className="bg-teal-100 text-teal-800 px-2 py-0.5 rounded-md font-bold">
+                        Chowk/Area: {m.filters.location}
+                      </span>
+                    )}
+                    {m.filters.budget && (
+                      <span className="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-md font-bold">
+                        Budget: ₹{m.filters.budget}
+                      </span>
+                    )}
                   </div>
                 )}
               </div>

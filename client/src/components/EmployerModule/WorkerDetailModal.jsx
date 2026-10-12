@@ -105,7 +105,7 @@ export function WorkerDetailModal() {
               {bioText}
             </p>
             <div className="flex flex-wrap gap-2 mt-3">
-              {worker.skills.map((skill, i) => (
+              {(worker.skills || [worker.trade]).map((skill, i) => (
                 <span key={i} className="px-3 py-1 bg-slate-100 text-slate-800 text-xs font-bold rounded-xl border border-slate-200">
                   {skill}
                 </span>

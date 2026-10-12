@@ -120,12 +120,12 @@ function MainLayout() {
   if (filters.search) {
     const q = filters.search.toLowerCase();
     displayedWorkers = displayedWorkers.filter(w =>
-      w.name.toLowerCase().includes(q) ||
-      w.trade.toLowerCase().includes(q) ||
+      (w.name && w.name.toLowerCase().includes(q)) ||
+      (w.trade && w.trade.toLowerCase().includes(q)) ||
       (w.tradeMr && w.tradeMr.toLowerCase().includes(q)) ||
       (w.tradeHi && w.tradeHi.toLowerCase().includes(q)) ||
-      w.location.toLowerCase().includes(q) ||
-      w.skills.some(s => s.toLowerCase().includes(q))
+      (w.location && w.location.toLowerCase().includes(q)) ||
+      (Array.isArray(w.skills) && w.skills.some(s => s && s.toLowerCase().includes(q)))
     );
   }
 

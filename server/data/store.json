@@ -1,6 +1,125 @@
 {
   "workers": [
     {
+      "id": "w-1791725691180",
+      "name": "Tanaji Patil",
+      "trade": "Electrician",
+      "tradeMr": "इलेक्ट्रिशियन",
+      "tradeHi": "इलेक्ट्रीशियन",
+      "experienceYears": 4,
+      "dailyWage": 600,
+      "hourlyWage": 86,
+      "rating": 5,
+      "reviewsCount": 1,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "division": "western",
+      "location": "Shahupuri, Kolhapur",
+      "locationArea": "Shahupuri",
+      "lat": 16.70440992732087,
+      "lng": 74.24232434684811,
+      "phone": "+91 98229 11223",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Verified",
+      "skills": [
+        "Wiring",
+        "Switchboard Repair"
+      ],
+      "bio": "4 years of dedicated experience in Electrician. Reliable and verified.",
+      "recentWork": [],
+      "completedJobsCount": 0,
+      "totalEarnings": 0,
+      "matchScore": 88,
+      "distanceKm": 2.5,
+      "aiReason": "Electrician registered in Kolhapur • Available now • Fits ₹600 budget"
+    },
+    {
+      "id": "w-test-1791722030028",
+      "name": "Ganesh Shinde",
+      "trade": "Mason",
+      "dailyWage": 800,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "location": "Tarabai Park, Kolhapur",
+      "lat": 16.7088,
+      "lng": 74.2415,
+      "completedJobsCount": 1,
+      "totalEarnings": 800,
+      "reviewsCount": null,
+      "rating": null,
+      "recentWork": [
+        {
+          "title": "Wall plastering",
+          "rating": 5,
+          "wage": 800,
+          "date": "Just now"
+        }
+      ]
+    },
+    {
+      "id": "w-test-1791721965347",
+      "name": "Ganesh Shinde",
+      "trade": "Mason",
+      "dailyWage": 800,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "location": "Tarabai Park, Kolhapur",
+      "lat": 16.7088,
+      "lng": 74.2415,
+      "completedJobsCount": 1,
+      "totalEarnings": 800,
+      "reviewsCount": null,
+      "rating": null,
+      "recentWork": [
+        {
+          "title": "Wall plastering",
+          "rating": 5,
+          "wage": 800,
+          "date": "Just now"
+        }
+      ]
+    },
+    {
+      "id": "w-1791720845002",
+      "name": "Malicious Attacker",
+      "trade": "Plumber",
+      "tradeMr": "प्लंबर",
+      "tradeHi": "प्लंबर",
+      "experienceYears": 1,
+      "dailyWage": 500,
+      "hourlyWage": 71,
+      "rating": 5,
+      "reviewsCount": 1,
+      "district": "Kolhapur",
+      "city": "Kolhapur",
+      "division": "western",
+      "location": "Pune",
+      "locationArea": "Pune",
+      "lat": 16.711157766203797,
+      "lng": 74.20374141917252,
+      "phone": "+91 98000 00000",
+      "avatar": "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80",
+      "isAvailable": true,
+      "availableToday": true,
+      "isIdentityVerified": true,
+      "isSkillVerified": true,
+      "idProofType": "Aadhaar Verified",
+      "skills": [
+        "Plumber"
+      ],
+      "bio": "1 years of dedicated experience in Plumber. Reliable and verified.",
+      "recentWork": [],
+      "completedJobsCount": 0,
+      "totalEarnings": 0,
+      "matchScore": 88,
+      "distanceKm": 2.5,
+      "aiReason": "Plumber registered in Kolhapur • Available now • Fits ₹500 budget"
+    },
+    {
       "id": "w-1",
       "name": "Sanjay More",
       "trade": "Electrician",
@@ -550,7 +669,7 @@
       "lng": 74.2238,
       "phone": "+91 98224 88712",
       "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80",
-      "isAvailable": true,
+      "isAvailable": false,
       "availableToday": true,
       "isIdentityVerified": true,
       "isSkillVerified": true,
@@ -2088,6 +2207,42 @@
   ],
   "jobs": [
     {
+      "id": "job-test-1791722030032",
+      "workerId": "w-test-1791722030028",
+      "title": "Wall plastering",
+      "offeredWage": 800,
+      "status": "completed",
+      "messages": [
+        {
+          "id": "msg-1791722030034-syka",
+          "sender": "employer",
+          "senderName": "Site Supervisor",
+          "text": "Material is ready at site",
+          "time": "06:03 pm"
+        }
+      ],
+      "rating": 5,
+      "analyticsCounted": true
+    },
+    {
+      "id": "job-test-1791721965350",
+      "workerId": "w-test-1791721965347",
+      "title": "Wall plastering",
+      "offeredWage": 800,
+      "status": "completed",
+      "messages": [
+        {
+          "id": "msg-1791721965351-sf1d",
+          "sender": "employer",
+          "senderName": "Site Supervisor",
+          "text": "Material is ready at site",
+          "time": "06:02 pm"
+        }
+      ],
+      "rating": 5,
+      "analyticsCounted": true
+    },
+    {
       "id": "job-101",
       "employerName": "Aditya Deshmukh (Contractor)",
       "employerPhone": "+91 98221 00011",
@@ -2119,6 +2274,14 @@
           "text": "मी निघालो आहे. 15 मिनिटांत पोहोचतो.",
           "translatedText": "I have left. Will reach the site in 15 minutes.",
           "time": "09:38 AM"
+        },
+        {
+          "id": "msg-1791721111625-9p19",
+          "sender": "employer",
+          "senderName": "TestUser",
+          "text": "&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;Hello from customer",
+          "translatedText": "&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;Hello from customer",
+          "time": "05:48 pm"
         }
       ]
     },
@@ -2196,8 +2359,8 @@
     }
   ],
   "analytics": {
-    "totalGigsCompleted": 248,
-    "totalEarningsDisbursed": 142800,
+    "totalGigsCompleted": 250,
+    "totalEarningsDisbursed": 144400,
     "avgTimeToHireMinutes": 8.4,
     "chowkWaitTimeHours": 4.5,
     "repeatHiringRate": 78

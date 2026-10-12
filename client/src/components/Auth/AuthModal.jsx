@@ -68,9 +68,9 @@ export function AuthModal({ isOpen, onClose }) {
     }
   };
 
-  const handleAdminLogin = (e) => {
+  const handleAdminLogin = async (e) => {
     e.preventDefault();
-    const success = loginAsAdmin(adminPin);
+    const success = await loginAsAdmin(adminPin);
     if (success) {
       setAdminError('');
       closeModal();

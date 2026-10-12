@@ -7,6 +7,8 @@ export function SendJobModal() {
     selectedWorkerForJob, 
     setSelectedWorkerForJob, 
     sendJobRequest, 
+    currentUser,
+    userDistrict,
     language, 
     t 
   } = useApp();
@@ -15,23 +17,24 @@ export function SendJobModal() {
 
   const [title, setTitle] = useState('');
   const [wage, setWage] = useState(600);
-  const [location, setLocation] = useState('Pune');
+  const [location, setLocation] = useState('Kolhapur');
   const [description, setDescription] = useState('Need experienced worker on site tomorrow at 9:00 AM. Tools required.');
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     if (worker) {
+      const cityOrDistrict = worker.district || worker.city || userDistrict || 'Maharashtra';
       setWage(worker.dailyWage || 600);
-      setLocation(worker.locationArea ? `${worker.locationArea}, Pune` : worker.location || 'Kothrud, Pune');
+      setLocation(worker.locationArea ? `${worker.locationArea}, ${cityOrDistrict}` : worker.location || `${cityOrDistrict}`);
       setTitle(
-        worker.trade === 'Electrician' ? 'Residential flat electrical wiring & MCB check' :
+        worker.trade === 'Electrician' ? 'Residential electrical wiring & MCB check' :
         worker.trade === 'Plumber' ? 'Bathroom pipe leakage and tap replacement' :
         worker.trade === 'Painter' ? 'Living room interior wall putty & paint' :
         worker.trade === 'Carpenter' ? 'Kitchen modular cabinet & door repair' :
         `${worker.trade} maintenance and fitting`
       );
     }
-  }, [worker?.id]);
+  }, [worker?.id, userDistrict]);
 
   if (!worker) return null;
 
@@ -39,8 +42,8 @@ export function SendJobModal() {
     e.preventDefault();
     setSubmitting(true);
     await sendJobRequest({
-      employerName: 'Aditya Deshmukh (Contractor)',
-      employerPhone: '+91 98221 00011',
+      employerName: currentUser?.name || 'Customer / Contractor',
+      employerPhone: currentUser?.phone || '+91 98221 00011',
       workerId: worker.id,
       workerName: worker.name,
       trade: worker.trade,

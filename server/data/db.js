@@ -2,6 +2,10 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { initialWorkers, initialJobs } from './seedData.js';
+import { isMongoConnected } from './mongoConnection.js';
+import { Worker } from '../models/Worker.js';
+import { Job } from '../models/Job.js';
+import { Analytics } from '../models/Analytics.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -48,6 +52,35 @@ class Database {
     }
   }
 
+  // Hydrate memory cache from MongoDB if connected
+  async hydrateFromMongo() {
+    if (!isMongoConnected()) return;
+    try {
+      const mongoWorkers = await Worker.find().lean();
+      if (mongoWorkers && mongoWorkers.length > 0) {
+        this.data.workers = mongoWorkers;
+      }
+      const mongoJobs = await Job.find().lean();
+      if (mongoJobs && mongoJobs.length > 0) {
+        this.data.jobs = mongoJobs;
+      }
+      const mongoAnalytics = await Analytics.findOne({ key: 'platform_metrics' }).lean();
+      if (mongoAnalytics) {
+        this.data.analytics = {
+          totalGigsCompleted: mongoAnalytics.totalGigsCompleted,
+          totalEarningsDisbursed: mongoAnalytics.totalEarningsDisbursed,
+          avgTimeToHireMinutes: mongoAnalytics.avgTimeToHireMinutes,
+          chowkWaitTimeHours: mongoAnalytics.chowkWaitTimeHours,
+          repeatHiringRate: mongoAnalytics.repeatHiringRate
+        };
+      }
+      this.save();
+      console.log(`🔄 Hydrated ${this.data.workers.length} workers & ${this.data.jobs.length} jobs from MongoDB into local memory.`);
+    } catch (err) {
+      console.error('Failed to hydrate from MongoDB:', err.message);
+    }
+  }
+
   reset() {
     this.data = {
       workers: JSON.parse(JSON.stringify(initialWorkers)),
@@ -61,6 +94,27 @@ class Database {
       }
     };
     this.save();
+
+    // Async sync with MongoDB if connected
+    if (isMongoConnected()) {
+      (async () => {
+        try {
+          await Worker.deleteMany({});
+          await Worker.insertMany(initialWorkers);
+          await Job.deleteMany({});
+          await Job.insertMany(initialJobs);
+          await Analytics.findOneAndUpdate(
+            { key: 'platform_metrics' },
+            { $set: this.data.analytics },
+            { upsert: true }
+          );
+          console.log('🍃 MongoDB collections reset to seed data.');
+        } catch (err) {
+          console.error('Error resetting MongoDB:', err.message);
+        }
+      })();
+    }
+
     return this.data;
   }
 
@@ -75,6 +129,12 @@ class Database {
   addWorker(worker) {
     this.data.workers.unshift(worker);
     this.save();
+
+    // Sync to MongoDB
+    if (isMongoConnected()) {
+      Worker.create(worker).catch(err => console.error('MongoDB worker insert error:', err.message));
+    }
+
     return worker;
   }
 
@@ -83,6 +143,13 @@ class Database {
     if (idx !== -1) {
       this.data.workers[idx] = { ...this.data.workers[idx], ...updates };
       this.save();
+
+      // Sync to MongoDB
+      if (isMongoConnected()) {
+        Worker.findOneAndUpdate({ id }, { $set: updates }, { new: true })
+          .catch(err => console.error('MongoDB worker update error:', err.message));
+      }
+
       return this.data.workers[idx];
     }
     return null;
@@ -100,6 +167,12 @@ class Database {
     if (!job.messages) job.messages = [];
     this.data.jobs.unshift(job);
     this.save();
+
+    // Sync to MongoDB
+    if (isMongoConnected()) {
+      Job.create(job).catch(err => console.error('MongoDB job insert error:', err.message));
+    }
+
     return job;
   }
 
@@ -134,10 +207,42 @@ class Database {
             wage: this.data.jobs[idx].offeredWage || 600,
             date: 'Just now'
           });
+
+          // Sync worker update to MongoDB
+          if (isMongoConnected()) {
+            Worker.findOneAndUpdate(
+              { id: worker.id },
+              {
+                $set: {
+                  completedJobsCount: worker.completedJobsCount,
+                  totalEarnings: worker.totalEarnings,
+                  rating: worker.rating,
+                  reviewsCount: worker.reviewsCount,
+                  recentWork: worker.recentWork
+                }
+              }
+            ).catch(err => console.error('MongoDB worker earnings sync error:', err.message));
+          }
+        }
+
+        // Sync analytics to MongoDB
+        if (isMongoConnected()) {
+          Analytics.findOneAndUpdate(
+            { key: 'platform_metrics' },
+            { $set: this.data.analytics },
+            { upsert: true }
+          ).catch(err => console.error('MongoDB analytics update error:', err.message));
         }
       }
 
       this.save();
+
+      // Sync job update to MongoDB
+      if (isMongoConnected()) {
+        Job.findOneAndUpdate({ id }, { $set: updates }, { new: true })
+          .catch(err => console.error('MongoDB job update error:', err.message));
+      }
+
       return this.data.jobs[idx];
     }
     return null;
@@ -154,6 +259,15 @@ class Database {
       };
       job.messages.push(msgObj);
       this.save();
+
+      // Sync message to MongoDB
+      if (isMongoConnected()) {
+        Job.findOneAndUpdate(
+          { id: jobId },
+          { $push: { messages: msgObj } }
+        ).catch(err => console.error('MongoDB message push error:', err.message));
+      }
+
       return msgObj;
     }
     return null;

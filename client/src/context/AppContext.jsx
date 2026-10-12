@@ -25,6 +25,7 @@ export function AppProvider({ children }) {
   // Authentication & Portal Isolation State
   const [authRole, setAuthRole] = useState('employer'); // 'employer' | 'worker' | 'admin'
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
+  const [adminAuthToken, setAdminAuthToken] = useState(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
 
   const [currentUser, setCurrentUser] = useState({
@@ -299,21 +300,36 @@ export function AppProvider({ children }) {
     );
   };
 
-  const loginAsAdmin = (pin) => {
-    if (pin === 'admin123' || pin === 'kaamsetu2026') {
-      setIsAdminAuthenticated(true);
-      setAuthRole('admin');
-      setCurrentUser({
-        id: 'admin-01',
-        name: 'Chief Verification Officer',
-        role: 'admin',
-        title: 'Trust & Verification Registrar'
+  const loginAsAdmin = async (pin) => {
+    try {
+      const res = await fetch('/api/auth/admin-login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin })
       });
-      if (soundEnabled) sound.playSuccess();
-      addToast('Trust Admin Portal Unlocked!', 'success');
-      return true;
+      if (res.ok) {
+        const data = await res.json();
+        setAdminAuthToken(data.token);
+        setIsAdminAuthenticated(true);
+        setAuthRole('admin');
+        setCurrentUser(data.user || {
+          id: 'admin-01',
+          name: 'Chief Verification Officer',
+          role: 'admin',
+          title: 'Trust & Verification Registrar'
+        });
+        if (soundEnabled) sound.playSuccess();
+        addToast('Trust Admin Portal Unlocked with Authenticated Token!', 'success');
+        return true;
+      } else {
+        const errData = await res.json().catch(() => ({}));
+        addToast(errData.error || 'Invalid Admin Passcode', 'alert');
+        return false;
+      }
+    } catch (err) {
+      addToast('Admin authentication failed', 'alert');
+      return false;
     }
-    return false;
   };
 
   const logout = () => {
@@ -424,23 +440,31 @@ export function AppProvider({ children }) {
     }
   };
 
-  // Verify Worker (Trust Layer Admin)
+  // Verify Worker (Trust Layer Admin with Server RBAC)
   const verifyWorker = async (workerId, field = 'isSkillVerified') => {
     try {
       const worker = workers.find(w => w.id === workerId);
       const updates = { [field]: !worker[field] };
+      const headers = { 'Content-Type': 'application/json' };
+      if (adminAuthToken) {
+        headers['Authorization'] = `Bearer ${adminAuthToken}`;
+      }
       const res = await fetch(`/api/workers/${workerId}`, {
         method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
+        headers,
         body: JSON.stringify(updates)
       });
       if (res.ok) {
         const updated = await res.json();
         setWorkers(prev => prev.map(w => w.id === workerId ? updated : w));
         addToast(`Worker ${field === 'isSkillVerified' ? 'Skill' : 'Identity'} status updated!`, 'success');
+      } else {
+        const err = await res.json().catch(() => ({}));
+        addToast(err.error || 'Admin privileges required', 'alert');
       }
     } catch (err) {
       console.error(err);
+      addToast('Failed to update worker status', 'alert');
     }
   };
 
